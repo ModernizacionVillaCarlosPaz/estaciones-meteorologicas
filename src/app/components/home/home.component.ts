@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
-import {MatNativeDateModule} from '@angular/material/core';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
+import { CmmService } from '../../services/cmm.service'
 
 const MY_DATE_FORMATS = {
   parse: {
@@ -27,7 +28,7 @@ const MY_DATE_FORMATS = {
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private viewportScroller: ViewportScroller) { }
+  constructor(private viewportScroller: ViewportScroller, private cmmSvc: CmmService) { }
 
   cmm: boolean = true;
   cmm1: boolean = true;
@@ -45,6 +46,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.backgroundColor = this.obtenerHoraActualCordoba()
+    this.cmmSvc.getLast().subscribe(res => {
+      console.log(res)
+    })
+
   }
 
   obtenerHoraActualCordoba(): string {
@@ -71,8 +76,8 @@ export class HomeComponent implements OnInit {
     switch (modal) {
       case 0:
         if (this.cmmModal) {
-        this.cmmModal = false
-        this.modal = false
+          this.cmmModal = false
+          this.modal = false
         } else {
           this.cmmModal = true
           this.modal = true
@@ -85,25 +90,25 @@ export class HomeComponent implements OnInit {
         if (this.cmm1Modal) {
           this.cmm1Modal = false
           this.modal = false
-          } else {
-            this.cmm1Modal = true
-            this.modal = true
-            this.cmmModal = false
-            this.cmm2Modal = false
-            this.viewportScroller.scrollToAnchor('cmmData');
-          }
+        } else {
+          this.cmm1Modal = true
+          this.modal = true
+          this.cmmModal = false
+          this.cmm2Modal = false
+          this.viewportScroller.scrollToAnchor('cmmData');
+        }
         break;
       case 2:
         if (this.cmm2Modal) {
           this.cmm2Modal = false
           this.modal = false
-          } else {
-            this.cmm2Modal = true
-            this.modal = true
-            this.cmm1Modal = false
-            this.cmmModal = false
-            this.viewportScroller.scrollToAnchor('cmmData');
-          }
+        } else {
+          this.cmm2Modal = true
+          this.modal = true
+          this.cmm1Modal = false
+          this.cmmModal = false
+          this.viewportScroller.scrollToAnchor('cmmData');
+        }
         break;
     }
   }
