@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MaterialModule } from './material.module'; 
 
@@ -19,6 +20,7 @@ import { MaterialModule } from './material.module';
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
   ],

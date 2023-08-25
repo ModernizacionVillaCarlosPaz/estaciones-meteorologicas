@@ -11,9 +11,9 @@ exports.Routes = [{
         action: "last"
     }, {
         method: "get",
-        route: "/cmm/:dateTime",
+        route: "/cmm/:startDate/:endDate",
         controller: CmmController_1.CmmController,
-        action: "one"
+        action: "Find"
     },
     {
         method: "get",
@@ -22,9 +22,9 @@ exports.Routes = [{
         action: "last"
     }, {
         method: "get",
-        route: "/cmm1/:dateTime",
+        route: "/cmm1/:startDate/:endDate",
         controller: Cmm1Controller_1.Cmm1Controller,
-        action: "one"
+        action: "Find"
     },
     {
         method: "get",
@@ -33,9 +33,9 @@ exports.Routes = [{
         action: "last"
     }, {
         method: "get",
-        route: "/cmm2/:dateTime",
+        route: "/cmm2/:startDate/:endDate",
         controller: Cmm2Controller_1.Cmm2Controller,
-        action: "one"
+        action: "Find"
     }
 ];
 //# sourceMappingURL=routes.js.map

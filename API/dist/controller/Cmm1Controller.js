@@ -43,31 +43,56 @@ var Cmm1Controller = /** @class */ (function () {
     function Cmm1Controller() {
         this.cmm1Repository = data_source_1.cmm1.getRepository(Archive_1.Archive);
     }
-    Cmm1Controller.prototype.all = function (request, response, next) {
+    Cmm1Controller.prototype.last = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                console.log("entra");
-                return [2 /*return*/, this.cmm1Repository.find()];
-            });
-        });
-    };
-    Cmm1Controller.prototype.one = function (request, response, next) {
-        return __awaiter(this, void 0, void 0, function () {
-            var dateTime, archive;
+            var results, closestArchive, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        dateTime = parseInt(request.params.dateTime);
-                        console.log("entra");
-                        return [4 /*yield*/, this.cmm1Repository.findOne({
-                                where: { dateTime: dateTime }
-                            })];
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, data_source_1.cmm1.query("SELECT *, DATE_FORMAT(FROM_UNIXTIME(dateTime), '%Y-%m-%d %H:%i:%s') AS formattedDateTime\n            FROM archive\n            WHERE dateTime = (\n                SELECT MAX(dateTime)\n                FROM archive\n            );")];
                     case 1:
-                        archive = _a.sent();
-                        if (!archive) {
-                            return [2 /*return*/, "Registro no encontrado"];
+                        results = _a.sent();
+                        closestArchive = results;
+                        if (closestArchive) {
+                            res.send(closestArchive);
                         }
-                        return [2 /*return*/, archive];
+                        else {
+                            res.send("No se encontraron registros.");
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_1 = _a.sent();
+                        res.status(500).send("Error al obtener los registros");
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Cmm1Controller.prototype.Find = function (req, res, next) {
+        return __awaiter(this, void 0, void 0, function () {
+            var startDate, endDate, results, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        startDate = req.params.startDate;
+                        endDate = req.params.endDate;
+                        console.log(startDate, endDate);
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, data_source_1.cmm1.query("\n            SELECT\n            AVG(usUnits) AS avg_usUnits,\n            AVG(barometer) AS avg_barometer,\n            AVG(pressure) AS avg_pressure,\n            AVG(altimeter) AS avg_altimeter,\n            MAX(inTemp) AS inTempMax,\n            MIN(inTemp) AS inTempMin,\n            AVG(outTemp) AS avg_outTemp,\n            AVG(inHumidity) AS avg_inHumidity,\n            AVG(outHumidity) AS avg_outHumidity,\n            AVG(windSpeed) AS avg_windSpeed,\n            AVG(windDir) AS avg_windDir,\n            AVG(windGust) AS avg_windGust,\n            AVG(windGustDir) AS avg_windGustDir,\n            AVG(rainRate) AS avg_rainRate,\n            AVG(rain) AS avg_rain,\n            AVG(dewpoint) AS avg_dewpoint,\n            AVG(windchill) AS avg_windchill,\n            AVG(heatindex) AS avg_heatindex,\n            AVG(ET) AS avg_ET,\n            AVG(radiation) AS avg_radiation,\n            AVG(UV) AS avg_UV,\n            AVG(extraTemp1) AS avg_extraTemp1,\n            AVG(extraTemp2) AS avg_extraTemp2,\n            AVG(heatingVoltage) AS avg_heatingVoltage,\n            AVG(supplyVoltage) AS avg_supplyVoltage,\n            AVG(referenceVoltage) AS avg_referenceVoltage,\n            AVG(windBatteryStatus) AS avg_windBatteryStatus,\n            AVG(rainBatteryStatus) AS avg_rainBatteryStatus,\n            AVG(outTempBatteryStatus) AS avg_outTempBatteryStatus,\n            AVG(inTempBatteryStatus) AS avg_inTempBatteryStatus,\n            DATE_FORMAT(FROM_UNIXTIME(dateTime), '%Y-%m-%d') AS formattedDateTime\n        FROM archive\n        WHERE DATE(FROM_UNIXTIME(dateTime)) BETWEEN ? AND ?\n        GROUP BY DATE(FROM_UNIXTIME(dateTime))\n        ORDER BY DATE(FROM_UNIXTIME(dateTime)) DESC;\n            ", [startDate, endDate])];
+                    case 2:
+                        results = _a.sent();
+                        res.send(results);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_2 = _a.sent();
+                        console.log(error_2);
+                        res.status(500).send("Error al obtener los registros");
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         });

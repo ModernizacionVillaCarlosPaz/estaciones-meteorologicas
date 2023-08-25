@@ -74,8 +74,6 @@ export class Archive {
   @Column({ type: 'double', nullable: true })
   extraTemp2: number | null;
 
-  // ... (Continuar con el resto de los atributos)
-
   @Column({ type: 'double', nullable: true })
   heatingVoltage: number | null;
 

@@ -6,19 +6,19 @@ export class CmmController {
 
     private cmmRepository = cmm.getRepository(Archive);
 
-    async last(req: Request, res: Response, next: NextFunction) {
+    /*async last(req: Request, res: Response, next: NextFunction) {
         try {
             console.log("entra");
-    
+
             const currentTimestamp = Math.floor(Date.now() / 1000); // Obtén el timestamp actual en segundos
-    
+
             const closestArchive = await this.cmmRepository
                 .createQueryBuilder("archive")
                 .addSelect("ABS(archive.dateTime - :currentTimestamp)", "difference")
                 .orderBy("difference")
                 .setParameter("currentTimestamp", currentTimestamp)
                 .getOne();
-    
+
             if (closestArchive) {
                 const formattedDateTime = new Date(closestArchive.dateTime * 1000)
                     .toLocaleString("es-ES", {
@@ -30,10 +30,29 @@ export class CmmController {
                         minute: "2-digit",
                         second: "2-digit"
                     });
-    
+
                 // Agregar la propiedad formattedDateTime al objeto closestArchive
                 closestArchive['formattedDateTime'] = formattedDateTime;
-    
+
+                res.send(closestArchive);
+            } else {
+                res.send("No se encontraron registros.");
+            }
+        } catch (error) {
+            res.status(500).send("Error al obtener los registros");
+        }
+    }*/
+
+        async last(req: Request, res: Response, next: NextFunction) {
+        try {
+            const results = await cmm.query(`SELECT *, DATE_FORMAT(FROM_UNIXTIME(dateTime), '%Y-%m-%d %H:%i:%s') AS formattedDateTime
+            FROM archive
+            WHERE dateTime = (
+                SELECT MAX(dateTime)
+                FROM archive
+            );`)
+            const closestArchive = results;
+            if (closestArchive) {
                 res.send(closestArchive);
             } else {
                 res.send("No se encontraron registros.");
@@ -42,21 +61,57 @@ export class CmmController {
             res.status(500).send("Error al obtener los registros");
         }
     }
-    
 
-    async one(req: Request, res: Response, next: NextFunction) {
-        const dateTime = parseInt(req.params.dateTime);
-        console.log(dateTime);
-        const archive = await this.cmmRepository.findOne({
-            where: { dateTime }
-        });
-    
-        if (!archive) {
-            res.status(404).send("Registro no encontrado");
-            return;
+    async Find(req: Request, res: Response, next: NextFunction) {
+        const startDate = req.params.startDate;
+        const endDate = req.params.endDate;
+        console.log(startDate, endDate)
+        try {
+
+            const results = await cmm.query(`
+            SELECT
+            ROUND(AVG(usUnits), 1) AS avg_usUnits,
+            ROUND(AVG(barometer), 1) AS avg_barometer,
+            ROUND(AVG(pressure), 1) AS avg_pressure,
+            ROUND(AVG(altimeter), 1) AS avg_altimeter,
+            ROUND(MAX(inTemp), 1) AS inTempMax,
+            ROUND(MIN(inTemp), 1) AS inTempMin,
+            ROUND(AVG(outTemp), 1) AS avg_outTemp,
+            ROUND(AVG(inHumidity), 1) AS avg_inHumidity,
+            ROUND(AVG(outHumidity), 1) AS avg_outHumidity,
+            ROUND(AVG(windSpeed), 1) AS avg_windSpeed,
+            ROUND(AVG(windDir), 1) AS avg_windDir,
+            ROUND(AVG(windGust), 1) AS avg_windGust,
+            ROUND(AVG(windGustDir), 1) AS avg_windGustDir,
+            ROUND(AVG(rainRate), 1) AS avg_rainRate,
+            ROUND(AVG(rain), 1) AS avg_rain,
+            ROUND(AVG(dewpoint), 1) AS avg_dewpoint,
+            ROUND(AVG(windchill), 1) AS avg_windchill,
+            ROUND(AVG(heatindex), 1) AS avg_heatindex,
+            ROUND(AVG(ET), 1) AS avg_ET,
+            ROUND(AVG(radiation), 1) AS avg_radiation,
+            ROUND(AVG(UV), 1) AS avg_UV,
+            ROUND(AVG(extraTemp1), 1) AS avg_extraTemp1,
+            ROUND(AVG(extraTemp2), 1) AS avg_extraTemp2,
+            ROUND(AVG(heatingVoltage), 1) AS avg_heatingVoltage,
+            ROUND(AVG(supplyVoltage), 1) AS avg_supplyVoltage,
+            ROUND(AVG(referenceVoltage), 1) AS avg_referenceVoltage,
+            ROUND(AVG(windBatteryStatus), 1) AS avg_windBatteryStatus,
+            ROUND(AVG(rainBatteryStatus), 1) AS avg_rainBatteryStatus,
+            ROUND(AVG(outTempBatteryStatus), 1) AS avg_outTempBatteryStatus,
+            ROUND(AVG(inTempBatteryStatus), 1) AS avg_inTempBatteryStatus,
+            DATE_FORMAT(FROM_UNIXTIME(dateTime), '%Y-%m-%d') AS formattedDateTime
+        FROM archive
+        WHERE DATE(FROM_UNIXTIME(dateTime)) BETWEEN ? AND ?
+        GROUP BY DATE(FROM_UNIXTIME(dateTime))
+        ORDER BY DATE(FROM_UNIXTIME(dateTime)) DESC;
+            `, [startDate, endDate]);
+
+            res.send(results);
+        } catch (error) {
+            console.log(error)
+            res.status(500).send("Error al obtener los registros");
         }
-    
-        console.log(archive);
-        res.send(archive);
     }
 }
+

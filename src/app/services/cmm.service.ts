@@ -15,8 +15,8 @@ export class CmmService {
     return this.http.get(`${environment.API_URL}/cmm`);
   }
 
-  getCmm(dateTime): Observable<any> {
-    return this.http.get(`${environment.API_URL}/cmm/${dateTime}`);
+  getRange(startDate:string, endDate:string): Observable<any> {
+    return this.http.get(`${environment.API_URL}/cmm/${startDate}/${endDate}`);
   }
   
 }

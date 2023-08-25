@@ -25,7 +25,11 @@
                 <div class="container py-5 h-100">
 
                     <div class="row d-flex justify-content-center align-items-center h-100" style="color: #282828;">
-                        <div class="col-xl-11 bgc">
+                        <div class="col-xl-11 bgc" *ngIf="cmmLoading" style="min-height: 55vh;">
+                            <mat-progress-bar mode="indeterminate">
+                            </mat-progress-bar>
+                        </div>
+                        <div class="col-xl-11 bgc" *ngIf="!cmmLoading">
 
                             <div class="card mb-4 gradient-custom" style="border-radius: 25px;">
                                 <div class="card-body p-4">
@@ -38,7 +42,13 @@
                                                     <div>
                                                         <h2 class="display-2"><strong>Municipalidad, Villa Carlos
                                                                 Paz</strong></h2>
-                                                        <p class="text-muted mb-0"><strong>LUN 12:00</strong></p>
+                                                        <span class="text-muted m-2"><strong><mat-icon
+                                                                    style="font-size: 17px;">calendar_today</mat-icon>
+                                                                {{getDia(cmmLastData.formattedDateTime)}}</strong></span>
+                                                        <span class="text-muted m-2"><strong><mat-icon
+                                                                    style="font-size: 17px;">access_time</mat-icon>
+                                                                {{getHora(cmmLastData.formattedDateTime)}}</strong></span>
+                                                        <br>
                                                         <button mat-button (click)="isOpenCmmData(0)" class="mt-5 pt-1">
                                                             <i class="fa-solid fa-clock-rotate-left fa-2x text-muted historial-i"
                                                                 style="color: #ddd;"></i></button>
@@ -72,7 +82,7 @@
                                             <div>
                                                 <div class="row">
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>21°C</strong></p>
+                                                        <p class="medium"><strong>{{cmmLastData.inTemp}}°C</strong></p>
                                                         <svg style="margin-right: 20px" height="60px"
                                                             viewBox="-42 0 512 512" width="60px"
                                                             xmlns="http://www.w3.org/2000/svg">
@@ -118,7 +128,8 @@
                                                         <p class="mb-0"><strong>Temperatura</strong></p>
                                                     </div>
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>84.0%</strong></p>
+                                                        <p class="medium"><strong>{{cmmLastData.inHumidity}}%</strong>
+                                                        </p>
                                                         <svg height="55px" viewBox="-38 0 420 420.192" width="55px"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -160,7 +171,8 @@
                                                         <p class="mb-0"><strong>Humedad</strong></p>
                                                     </div>
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>941.5hPa</strong></p>
+                                                        <p class="medium"><strong>{{cmmLastData.pressure}}hPa</strong>
+                                                        </p>
                                                         <svg height="55px" viewBox="0 0 512 512" width="55px"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -182,7 +194,7 @@
                                                         <p class="mb-0"><strong>Presión</strong></p>
                                                     </div>
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>0.0mm</strong></p>
+                                                        <p class="medium"><strong>{{cmmLastData.rain}}mm</strong></p>
                                                         <svg height="45.541px" viewBox="0 -7 512 512" width="47.542px"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -262,7 +274,8 @@
                                             <div class="">
                                                 <div class="row">
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>10.5°C</strong></p>
+                                                        <p class="medium"><strong>{{cmmLastData.dewpoint}}°C</strong>
+                                                        </p>
                                                         <svg xmlns="http://www.w3.org/2000/svg"
                                                             xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
                                                             id="Layer_1" x="0px" y="0px" viewBox="0 0 497 497"
@@ -318,7 +331,8 @@
                                                         <p class="mb-0"><strong>Punto de<br> rocío</strong></p>
                                                     </div>
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>13.1°C</strong></p>
+                                                        <p class="medium"><strong>{{cmmLastData.heatindex}}°C</strong>
+                                                        </p>
                                                         <svg style="margin-right: 20px" height="70px"
                                                             viewBox="-78 0 512 512" width="75px"
                                                             xmlns="http://www.w3.org/2000/svg">
@@ -427,7 +441,8 @@
                                                         <p class="mb-0"><strong>Sensación<br> térmica</strong></p>
                                                     </div>
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>9.1Km/h</strong></p>
+                                                        <p class="medium"><strong>{{cmmLastData.windSpeed}}Km/h</strong>
+                                                        </p>
                                                         <svg height="55px" viewBox="0 -23 511.99037 511" width="55px"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -481,7 +496,9 @@
                                                         <p class="mb-0"><strong>Velocidad del<br> viento</strong></p>
                                                     </div>
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>Norte</strong></p>
+                                                        <p class="medium">
+                                                            <strong>{{obtenerDireccionViento(cmmLastData.windDir)}}</strong>
+                                                        </p>
                                                         <svg height="55px" viewBox="-4 0 511 511.99978" width="55px"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -563,7 +580,11 @@
                 <div class="container py-5 h-100">
 
                     <div class="row d-flex justify-content-center align-items-center h-100" style="color: #282828;">
-                        <div class="col-xl-11 bgc">
+                        <div class="col-xl-11 bgc" *ngIf="cmm2Loading" style="min-height: 55vh;">
+                            <mat-progress-bar mode="indeterminate">
+                            </mat-progress-bar>
+                        </div>
+                        <div class="col-xl-11 bgc" *ngIf="!cmm2Loading">
 
                             <div class="card mb-4 gradient-custom" style="border-radius: 25px;">
                                 <div class="card-body p-4">
@@ -577,8 +598,14 @@
                                                         <h2 class="display-2"><strong>Colegio Dante Alighieri, Villa
                                                                 Carlos
                                                                 Paz</strong></h2>
-                                                        <p class="text-muted mb-0"><strong>LUN 12:00</strong></p>
-                                                        <button mat-button (click)="isOpenCmmData(1)" class="mt-5 pt-1">
+                                                        <span class="text-muted m-2"><strong><mat-icon
+                                                                    style="font-size: 17px;">calendar_today</mat-icon>
+                                                                {{getDia(cmm2LastData.formattedDateTime)}}</strong></span>
+                                                        <span class="text-muted m-2"><strong><mat-icon
+                                                                    style="font-size: 17px;">access_time</mat-icon>
+                                                                {{getHora(cmm2LastData.formattedDateTime)}}</strong></span>
+                                                        <br>
+                                                        <button mat-button (click)="isOpenCmmData(2)" class="mt-5 pt-1">
                                                             <i class="fa-solid fa-clock-rotate-left fa-2x text-muted historial-i"
                                                                 style="color: #ddd;"></i></button>
                                                     </div>
@@ -611,7 +638,7 @@
                                             <div>
                                                 <div class="row">
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>21°C</strong></p>
+                                                        <p class="medium"><strong>{{cmm2LastData.inTemp}}°C</strong></p>
                                                         <svg style="margin-right: 20px" height="60px"
                                                             viewBox="-42 0 512 512" width="60px"
                                                             xmlns="http://www.w3.org/2000/svg">
@@ -657,7 +684,8 @@
                                                         <p class="mb-0"><strong>Temperatura</strong></p>
                                                     </div>
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>84.0%</strong></p>
+                                                        <p class="medium"><strong>{{cmm2LastData.inHumidity}}%</strong>
+                                                        </p>
                                                         <svg height="55px" viewBox="-38 0 420 420.192" width="55px"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -699,7 +727,8 @@
                                                         <p class="mb-0"><strong>Humedad</strong></p>
                                                     </div>
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>941.5hPa</strong></p>
+                                                        <p class="medium"><strong>{{cmm2LastData.pressure}}hPa</strong>
+                                                        </p>
                                                         <svg height="55px" viewBox="0 0 512 512" width="55px"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -721,7 +750,7 @@
                                                         <p class="mb-0"><strong>Presión</strong></p>
                                                     </div>
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>0.0mm</strong></p>
+                                                        <p class="medium"><strong>{{cmm2LastData.rain}}mm</strong></p>
                                                         <svg height="45.541px" viewBox="0 -7 512 512" width="47.542px"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -801,7 +830,8 @@
                                             <div class="">
                                                 <div class="row">
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>10.5°C</strong></p>
+                                                        <p class="medium"><strong>{{cmm2LastData.dewpoint}}°C</strong>
+                                                        </p>
                                                         <svg xmlns="http://www.w3.org/2000/svg"
                                                             xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
                                                             id="Layer_1" x="0px" y="0px" viewBox="0 0 497 497"
@@ -857,7 +887,8 @@
                                                         <p class="mb-0"><strong>Punto de<br> rocío</strong></p>
                                                     </div>
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>13.1°C</strong></p>
+                                                        <p class="medium"><strong>{{cmm2LastData.heatindex}}°C</strong>
+                                                        </p>
                                                         <svg style="margin-right: 20px" height="70px"
                                                             viewBox="-78 0 512 512" width="75px"
                                                             xmlns="http://www.w3.org/2000/svg">
@@ -966,7 +997,9 @@
                                                         <p class="mb-0"><strong>Sensación<br> térmica</strong></p>
                                                     </div>
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>9.1Km/h</strong></p>
+                                                        <p class="medium">
+                                                            <strong>{{cmm2LastData.windSpeed}}Km/h</strong>
+                                                        </p>
                                                         <svg height="55px" viewBox="0 -23 511.99037 511" width="55px"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -1020,7 +1053,9 @@
                                                         <p class="mb-0"><strong>Velocidad del<br> viento</strong></p>
                                                     </div>
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>Norte</strong></p>
+                                                        <p class="medium">
+                                                            <strong>{{obtenerDireccionViento(cmm2LastData.windDir)}}</strong>
+                                                        </p>
                                                         <svg height="55px" viewBox="-4 0 511 511.99978" width="55px"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -1102,7 +1137,11 @@
                 <div class="container py-5 h-100">
 
                     <div class="row d-flex justify-content-center align-items-center h-100" style="color: #282828;">
-                        <div class="col-xl-11 bgc">
+                        <div class="col-xl-11 bgc" *ngIf="cmm1Loading" style="min-height: 55vh;">
+                            <mat-progress-bar mode="indeterminate">
+                            </mat-progress-bar>
+                        </div>
+                        <div class="col-xl-11 bgc" *ngIf="!cmm1Loading">
 
                             <div class="card mb-4 gradient-custom" style="border-radius: 25px;">
                                 <div class="card-body p-4">
@@ -1114,8 +1153,14 @@
                                                 <div class="d-flex justify-content-between">
                                                     <div>
                                                         <h2 class="display-2"><strong>San Antonio, Córdoba</strong></h2>
-                                                        <p class="text-muted mb-0"><strong>LUN 12:00</strong></p>
-                                                        <button mat-button (click)="isOpenCmmData(2)" class="mt-5 pt-1">
+                                                        <span class="text-muted m-2"><strong><mat-icon
+                                                                    style="font-size: 17px;">calendar_today</mat-icon>
+                                                                {{getDia(cmm1LastData.formattedDateTime)}}</strong></span>
+                                                        <span class="text-muted m-2"><strong><mat-icon
+                                                                    style="font-size: 17px;">access_time</mat-icon>
+                                                                {{getHora(cmm1LastData.formattedDateTime)}}</strong></span>
+                                                        <br>
+                                                        <button mat-button (click)="isOpenCmmData(1)" class="mt-5 pt-1">
                                                             <i class="fa-solid fa-clock-rotate-left fa-2x text-muted historial-i"
                                                                 style="color: #ddd;"></i></button>
                                                     </div>
@@ -1148,7 +1193,7 @@
                                             <div>
                                                 <div class="row">
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>21°C</strong></p>
+                                                        <p class="medium"><strong>{{cmm1LastData.inTemp}}°C</strong></p>
                                                         <svg style="margin-right: 20px" height="60px"
                                                             viewBox="-42 0 512 512" width="60px"
                                                             xmlns="http://www.w3.org/2000/svg">
@@ -1194,7 +1239,8 @@
                                                         <p class="mb-0"><strong>Temperatura</strong></p>
                                                     </div>
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>84.0%</strong></p>
+                                                        <p class="medium"><strong>{{cmm1LastData.inHumidity}}%</strong>
+                                                        </p>
                                                         <svg height="55px" viewBox="-38 0 420 420.192" width="55px"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -1236,7 +1282,8 @@
                                                         <p class="mb-0"><strong>Humedad</strong></p>
                                                     </div>
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>941.5hPa</strong></p>
+                                                        <p class="medium"><strong>{{cmm1LastData.pressure}}hPa</strong>
+                                                        </p>
                                                         <svg height="55px" viewBox="0 0 512 512" width="55px"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -1258,7 +1305,7 @@
                                                         <p class="mb-0"><strong>Presión</strong></p>
                                                     </div>
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>0.0mm</strong></p>
+                                                        <p class="medium"><strong>{{cmm1LastData.rain}}mm</strong></p>
                                                         <svg height="45.541px" viewBox="0 -7 512 512" width="47.542px"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -1338,7 +1385,8 @@
                                             <div class="">
                                                 <div class="row">
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>10.5°C</strong></p>
+                                                        <p class="medium"><strong>{{cmm1LastData.dewpoint}}°C</strong>
+                                                        </p>
                                                         <svg xmlns="http://www.w3.org/2000/svg"
                                                             xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
                                                             id="Layer_1" x="0px" y="0px" viewBox="0 0 497 497"
@@ -1394,7 +1442,8 @@
                                                         <p class="mb-0"><strong>Punto de<br> rocío</strong></p>
                                                     </div>
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>13.1°C</strong></p>
+                                                        <p class="medium"><strong>{{cmm1LastData.heatindex}}°C</strong>
+                                                        </p>
                                                         <svg style="margin-right: 20px" height="70px"
                                                             viewBox="-78 0 512 512" width="75px"
                                                             xmlns="http://www.w3.org/2000/svg">
@@ -1503,7 +1552,9 @@
                                                         <p class="mb-0"><strong>Sensación<br> térmica</strong></p>
                                                     </div>
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>9.1Km/h</strong></p>
+                                                        <p class="medium">
+                                                            <strong>{{cmm1LastData.windSpeed}}Km/h</strong>
+                                                        </p>
                                                         <svg height="55px" viewBox="0 -23 511.99037 511" width="55px"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -1557,7 +1608,9 @@
                                                         <p class="mb-0"><strong>Velocidad del<br> viento</strong></p>
                                                     </div>
                                                     <div class="col-xl-3 text-center">
-                                                        <p class="medium"><strong>Norte</strong></p>
+                                                        <p class="medium">
+                                                            <strong>{{obtenerDireccionViento(cmm1LastData.windDir)}}</strong>
+                                                        </p>
                                                         <svg height="55px" viewBox="-4 0 511 511.99978" width="55px"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -1645,22 +1698,29 @@
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h2 class="display-2"><strong>Municipalidad, Villa Carlos
-                                        Paz</strong></h2>
+                                <h2 class="display-2"><strong>
+                                        {{cmmModal? 'Municipalidad, Villa Carlos Paz':cmm1Modal? 'San Antonio, Córdoba':
+                                        'Colegio Dante Alighieri, Villa Carlos Paz'}}</strong></h2>
                                 <p class="text-muted mb-0"><strong>HISTORICO</strong></p>
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Selecciona el rango</mat-label>
-
-                                    <mat-date-range-input [rangePicker]="picker">
-                                        <input matStartDate placeholder="Desde" formControlName="start">
-                                        <input matEndDate placeholder="Hasta" formControlName="end">
-                                    </mat-date-range-input>
-
-                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-
-                                    <mat-date-range-picker #picker></mat-date-range-picker>
-                                </mat-form-field>
-
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <form [formGroup]="myForm">
+                                        <div class="d-flex justify-content-center align-items-center">
+                                          <mat-form-field appearance="outline">
+                                            <mat-label>Selecciona el rango</mat-label>
+                                            <mat-date-range-input [rangePicker]="picker">
+                                              <input matStartDate placeholder="Desde" formControlName="start">
+                                              <input matEndDate placeholder="Hasta" formControlName="end">
+                                            </mat-date-range-input>
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-date-range-picker #picker></mat-date-range-picker>
+                                          </mat-form-field>
+                                        
+                                          <button class="ml-2 p-2" style="margin-bottom:1.2em;" mat-stroked-button (click)="buscarValores()">
+                                            <mat-icon>search</mat-icon>
+                                          </button>
+                                        </div>
+                                      </form>
+                                </div>
                             </div>
                             <div>
                                 <div>
@@ -1675,46 +1735,56 @@
                         </div>
                         <mat-divider></mat-divider>
 
-                        <div class="mt-3 example-card mat-elevation-z3">
-                            <p class="text-muted mb-2 big"><strong>LUN 23/08/2023</strong></p>
+                        <div *ngFor="let data of cmmDataArray" class="mt-3 example-card mat-elevation-z3">
+                            <p class="text-muted mb-2 big"><strong>{{data.formattedDateTime}}</strong></p>
                             <mat-divider class="mb-2"></mat-divider>
                             <div class="row" style="width: 100%;">
-                                <div class="col-sm-3">
-                                    <i class="fa-solid fa-temperature-three-quarters fa-2x mb-3"
-                                        style="color: #ddd;"></i>
-                                    <span class="medium ml-1 text-muted"><strong>21°C</strong></span>
+                                <div class="col-sm-2 text-center">
+                                    <i class="fa-solid fa-temperature-arrow-up fa-2x mb-3" style="color: #ddd;"></i>
+                                    <span class="medium ml-1 text-muted"><strong>{{data.inTempMax}}°C</strong></span>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-2 text-center">
+                                    <i class="fa-solid fa-temperature-arrow-down fa-2x mb-3" style="color: #ddd;"></i>
+                                    <span class="medium ml-1 text-muted"><strong>{{data.inTempMin}}°C</strong></span>
+                                </div>
+                                <div class="col-sm-2 text-center">
                                     <i class="fa-solid fa-droplet fa-2x mb-3" style="color: #ddd;"></i>
-                                    <span class="medium ml-1 text-muted"><strong>84.0%</strong></span>
+                                    <span
+                                        class="medium ml-1 text-muted"><strong>{{data.avg_inHumidity}}%</strong></span>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-2 text-center">
                                     <i class="fa-solid fa-gauge-simple-high fa-2x mb-3" style="color: #ddd;"></i>
-                                    <span class="medium ml-1 text-muted"><strong>941.5hPa</strong></span>
+                                    <span
+                                        class="medium ml-1 text-muted"><strong>{{data.avg_pressure}}hPa</strong></span>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-2 text-center">
                                     <i class="fas fa-cloud-showers-heavy fa-2x mb-3" style="color: #ddd;"></i>
-                                    <span class="medium ml-1 text-muted"><strong>0.0mm</strong></span>
+                                    <span class="medium ml-1 text-muted"><strong>{{data.avg_rain}}mm</strong></span>
                                 </div>
-                                <div class="col-sm-3">
-                                    <i class="fa-solid fa-rainbow fa-2x mb-3" style="color: #ddd;"></i>
-                                    <span class="medium ml-1 text-muted"><strong>10.5°C</strong></span>
+                                <div class="col-sm-2 text-center">
+                                    <i class="fa-solid fa-smog fa-2x mb-3" style="color: #ddd;"></i>
+                                    <span class="medium ml-1 text-muted"><strong>{{data.avg_dewpoint}}°C</strong></span>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-2 text-center">
                                     <i class="fa-solid fa-person-dress-burst fa-2x mb-3" style="color: #ddd;"></i>
-                                    <span class="medium ml-1 text-muted"><strong>13.1°C</strong></span>
+                                    <span
+                                        class="medium ml-1 text-muted"><strong>{{data.avg_heatindex}}°C</strong></span>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-2 text-center">
                                     <i class="fa-solid fa-wind fa-2x mb-3" style="color: #ddd;"></i>
-                                    <span class="medium ml-1 text-muted"><strong>9.1Km/h</strong></span>
+                                    <span
+                                        class="medium ml-1 text-muted"><strong>{{data.avg_windSpeed}}Km/h</strong></span>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-2 text-center">
                                     <i class="fa-solid fa-compass fa-2x mb-3" style="color: #ddd;"></i>
-                                    <span class="medium ml-1 text-muted"><strong>Norte</strong></span>
+                                    <span
+                                        class="medium ml-1 text-muted"><strong>{{obtenerDireccionViento(data.avg_windDir)}}</strong></span>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>

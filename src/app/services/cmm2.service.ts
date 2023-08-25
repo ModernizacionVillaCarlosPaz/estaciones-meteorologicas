@@ -11,12 +11,12 @@ export class Cmm2Service {
   Swal: any;
   constructor(private http: HttpClient) { }
 
-  getAllCmm2(): Observable<any> {
+  getLast(): Observable<any> {
     return this.http.get(`${environment.API_URL2}/cmm2`);
   }
 
-  getCmm2(dateTime): Observable<any> {
-    return this.http.get(`${environment.API_URL2}/cmm2/${dateTime}`);
+  getRange(startDate:string, endDate:string): Observable<any> {
+    return this.http.get(`${environment.API_URL2}/cmm2/${startDate}/${endDate}`);
   }
   
 }

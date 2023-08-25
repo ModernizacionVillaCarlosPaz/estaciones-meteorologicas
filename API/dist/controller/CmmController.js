@@ -43,36 +43,54 @@ var CmmController = /** @class */ (function () {
     function CmmController() {
         this.cmmRepository = data_source_1.cmm.getRepository(Archive_1.Archive);
     }
+    /*async last(req: Request, res: Response, next: NextFunction) {
+        try {
+            console.log("entra");
+
+            const currentTimestamp = Math.floor(Date.now() / 1000); // Obtén el timestamp actual en segundos
+
+            const closestArchive = await this.cmmRepository
+                .createQueryBuilder("archive")
+                .addSelect("ABS(archive.dateTime - :currentTimestamp)", "difference")
+                .orderBy("difference")
+                .setParameter("currentTimestamp", currentTimestamp)
+                .getOne();
+
+            if (closestArchive) {
+                const formattedDateTime = new Date(closestArchive.dateTime * 1000)
+                    .toLocaleString("es-ES", {
+                        timeZone: "UTC",
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit"
+                    });
+
+                // Agregar la propiedad formattedDateTime al objeto closestArchive
+                closestArchive['formattedDateTime'] = formattedDateTime;
+
+                res.send(closestArchive);
+            } else {
+                res.send("No se encontraron registros.");
+            }
+        } catch (error) {
+            res.status(500).send("Error al obtener los registros");
+        }
+    }*/
     CmmController.prototype.last = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var currentTimestamp, closestArchive, formattedDateTime, error_1;
+            var results, closestArchive, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        console.log("entra");
-                        currentTimestamp = Math.floor(Date.now() / 1000);
-                        return [4 /*yield*/, this.cmmRepository
-                                .createQueryBuilder("archive")
-                                .addSelect("ABS(archive.dateTime - :currentTimestamp)", "difference")
-                                .orderBy("difference")
-                                .setParameter("currentTimestamp", currentTimestamp)
-                                .getOne()];
+                        return [4 /*yield*/, data_source_1.cmm.query("SELECT *, DATE_FORMAT(FROM_UNIXTIME(dateTime), '%Y-%m-%d %H:%i:%s') AS formattedDateTime\n            FROM archive\n            WHERE dateTime = (\n                SELECT MAX(dateTime)\n                FROM archive\n            );")];
                     case 1:
-                        closestArchive = _a.sent();
+                        results = _a.sent();
+                        closestArchive = results;
                         if (closestArchive) {
-                            formattedDateTime = new Date(closestArchive.dateTime * 1000)
-                                .toLocaleString("es-ES", {
-                                timeZone: "UTC",
-                                day: "2-digit",
-                                month: "2-digit",
-                                year: "numeric",
-                                hour: "2-digit",
-                                minute: "2-digit",
-                                second: "2-digit"
-                            });
-                            // Agregar la propiedad formattedDateTime al objeto closestArchive
-                            closestArchive['formattedDateTime'] = formattedDateTime;
                             res.send(closestArchive);
                         }
                         else {
@@ -88,26 +106,29 @@ var CmmController = /** @class */ (function () {
             });
         });
     };
-    CmmController.prototype.one = function (req, res, next) {
+    CmmController.prototype.Find = function (req, res, next) {
         return __awaiter(this, void 0, void 0, function () {
-            var dateTime, archive;
+            var startDate, endDate, results, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        dateTime = parseInt(req.params.dateTime);
-                        console.log(dateTime);
-                        return [4 /*yield*/, this.cmmRepository.findOne({
-                                where: { dateTime: dateTime }
-                            })];
+                        startDate = req.params.startDate;
+                        endDate = req.params.endDate;
+                        console.log(startDate, endDate);
+                        _a.label = 1;
                     case 1:
-                        archive = _a.sent();
-                        if (!archive) {
-                            res.status(404).send("Registro no encontrado");
-                            return [2 /*return*/];
-                        }
-                        console.log(archive);
-                        res.send(archive);
-                        return [2 /*return*/];
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, data_source_1.cmm.query("\n            SELECT\n            ROUND(AVG(usUnits), 1) AS avg_usUnits,\n            ROUND(AVG(barometer), 1) AS avg_barometer,\n            ROUND(AVG(pressure), 1) AS avg_pressure,\n            ROUND(AVG(altimeter), 1) AS avg_altimeter,\n            ROUND(MAX(inTemp), 1) AS inTempMax,\n            ROUND(MIN(inTemp), 1) AS inTempMin,\n            ROUND(AVG(outTemp), 1) AS avg_outTemp,\n            ROUND(AVG(inHumidity), 1) AS avg_inHumidity,\n            ROUND(AVG(outHumidity), 1) AS avg_outHumidity,\n            ROUND(AVG(windSpeed), 1) AS avg_windSpeed,\n            ROUND(AVG(windDir), 1) AS avg_windDir,\n            ROUND(AVG(windGust), 1) AS avg_windGust,\n            ROUND(AVG(windGustDir), 1) AS avg_windGustDir,\n            ROUND(AVG(rainRate), 1) AS avg_rainRate,\n            ROUND(AVG(rain), 1) AS avg_rain,\n            ROUND(AVG(dewpoint), 1) AS avg_dewpoint,\n            ROUND(AVG(windchill), 1) AS avg_windchill,\n            ROUND(AVG(heatindex), 1) AS avg_heatindex,\n            ROUND(AVG(ET), 1) AS avg_ET,\n            ROUND(AVG(radiation), 1) AS avg_radiation,\n            ROUND(AVG(UV), 1) AS avg_UV,\n            ROUND(AVG(extraTemp1), 1) AS avg_extraTemp1,\n            ROUND(AVG(extraTemp2), 1) AS avg_extraTemp2,\n            ROUND(AVG(heatingVoltage), 1) AS avg_heatingVoltage,\n            ROUND(AVG(supplyVoltage), 1) AS avg_supplyVoltage,\n            ROUND(AVG(referenceVoltage), 1) AS avg_referenceVoltage,\n            ROUND(AVG(windBatteryStatus), 1) AS avg_windBatteryStatus,\n            ROUND(AVG(rainBatteryStatus), 1) AS avg_rainBatteryStatus,\n            ROUND(AVG(outTempBatteryStatus), 1) AS avg_outTempBatteryStatus,\n            ROUND(AVG(inTempBatteryStatus), 1) AS avg_inTempBatteryStatus,\n            DATE_FORMAT(FROM_UNIXTIME(dateTime), '%Y-%m-%d') AS formattedDateTime\n        FROM archive\n        WHERE DATE(FROM_UNIXTIME(dateTime)) BETWEEN ? AND ?\n        GROUP BY DATE(FROM_UNIXTIME(dateTime))\n        ORDER BY DATE(FROM_UNIXTIME(dateTime)) DESC;\n            ", [startDate, endDate])];
+                    case 2:
+                        results = _a.sent();
+                        res.send(results);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_2 = _a.sent();
+                        console.log(error_2);
+                        res.status(500).send("Error al obtener los registros");
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
