@@ -3,6 +3,7 @@ import * as bodyParser from "body-parser";
 import { Request, Response } from "express";
 import { Routes } from "./routes";
 import { cmm, cmm1, cmm2 } from "./data-source"; // Import your data sources here
+const cors = require('cors')
 
 const portCmm = 3000;    // Puerto para cmm
 const portCmm1 = 3001;   // Puerto para cmm1
@@ -11,6 +12,26 @@ const portCmm2 = 3002;   // Puerto para cmm2
 function initializeServer(connection, connectionName, port) {
     connection.initialize().then(async () => {
         const app = express();
+
+        app.use(cors({
+            origin: "http://localhost:4200",
+            methods: ["GET"],
+        }));
+
+        const rateLimiter = cors({
+            max: 50, // Número máximo de solicitudes por segundo por usuario
+            windowMs: 1000, // Tiempo de ventana en milisegundos
+            individualLimit: true, // Limitar por usuario
+            maxAgeMs: 3600000, // Tiempo de espera en milisegundos
+            onLimit: (req, res, next) => {
+              res.status(429).send({
+                message: "Demaciadas consultas. Intenta nuevamente en una hora.",
+              });
+            },
+          });
+          
+        app.use(rateLimiter);
+
         app.use(bodyParser.json());
 
         app.use((req, res, next) => {

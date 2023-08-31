@@ -40,15 +40,32 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var routes_1 = require("./routes");
 var data_source_1 = require("./data-source"); // Import your data sources here
+var cors = require('cors');
 var portCmm = 3000; // Puerto para cmm
 var portCmm1 = 3001; // Puerto para cmm1
 var portCmm2 = 3002; // Puerto para cmm2
 function initializeServer(connection, connectionName, port) {
     var _this = this;
     connection.initialize().then(function () { return __awaiter(_this, void 0, void 0, function () {
-        var app;
+        var app, rateLimiter;
         return __generator(this, function (_a) {
             app = express();
+            app.use(cors({
+                origin: "http://localhost:4200",
+                methods: ["GET"],
+            }));
+            rateLimiter = cors({
+                max: 50,
+                windowMs: 1000,
+                individualLimit: true,
+                maxAgeMs: 3600000,
+                onLimit: function (req, res, next) {
+                    res.status(429).send({
+                        message: "Demaciadas consultas. Intenta nuevamente en una hora.",
+                    });
+                },
+            });
+            app.use(rateLimiter);
             app.use(bodyParser.json());
             app.use(function (req, res, next) {
                 res.header("Access-Control-Allow-Origin", "*"); // Puedes restringir esto a dominios específicos si es necesario
