@@ -251,7 +251,7 @@ export class HomeComponent implements OnInit {
           this.modal = true
           this.cmm1Modal = false
           this.cmm2Modal = false
-          this.cmmSvc.getRange(this.getDates().currentDate, this.getDates().sevenDaysAgo).subscribe(res => {
+          this.cmmSvc.getRange(this.getDates().sevenDaysAgo, this.getDates().currentDate).subscribe(res => {
             this.cmmDataArray = res
             console.log(res)
           })
@@ -267,7 +267,7 @@ export class HomeComponent implements OnInit {
           this.modal = true
           this.cmmModal = false
           this.cmm2Modal = false
-          this.cmm1Svc.getRange(this.getDates().currentDate, this.getDates().sevenDaysAgo).subscribe(res => {
+          this.cmm1Svc.getRange(this.getDates().sevenDaysAgo, this.getDates().currentDate).subscribe(res => {
             this.cmmDataArray = res
             console.log(res)
           })
@@ -283,7 +283,7 @@ export class HomeComponent implements OnInit {
           this.modal = true
           this.cmm1Modal = false
           this.cmmModal = false
-          this.cmm2Svc.getRange(this.getDates().currentDate, this.getDates().sevenDaysAgo).subscribe(res => {
+          this.cmm2Svc.getRange(this.getDates().sevenDaysAgo, this.getDates().currentDate).subscribe(res => {
             this.cmmDataArray = res
             console.log(res)
           })
