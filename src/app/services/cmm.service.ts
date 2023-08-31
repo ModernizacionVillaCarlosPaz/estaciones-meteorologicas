@@ -18,6 +18,10 @@ export class CmmService {
   getRange(startDate:string, endDate:string): Observable<any> {
     return this.http.get(`${environment.API_URL}/cmm/${startDate}/${endDate}`);
   }
+
+  getDay(Date:string): Observable<any> {
+    return this.http.get(`${environment.API_URL}/cmm/${Date}`);
+  }
   
 }
 

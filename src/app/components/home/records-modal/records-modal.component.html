@@ -1,0 +1,53 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z3">
+  <ng-container matColumnDef="hora">
+    <th class="text-center" mat-header-cell *matHeaderCellDef> Hora </th>
+    <td class="text-center" mat-cell *matCellDef="let dato"> {{ obtenerHora(dato.formattedDateTime) }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="temperatura">
+    <th class="text-center" mat-header-cell *matHeaderCellDef> Temperatura </th>
+    <td class="text-center" mat-cell *matCellDef="let dato"> {{ dato.inTemp }}°C </td>
+  </ng-container>
+
+  <ng-container matColumnDef="humedad">
+    <th class="text-center" mat-header-cell *matHeaderCellDef> Humedad </th>
+    <td class="text-center" mat-cell *matCellDef="let dato"> {{ dato.inHumidity }}% </td>
+  </ng-container>
+
+  <ng-container matColumnDef="presion">
+    <th class="text-center" mat-header-cell *matHeaderCellDef> Presión </th>
+    <td class="text-center" mat-cell *matCellDef="let dato"> {{ dato.pressure }}hPa </td>
+  </ng-container>
+
+  <ng-container matColumnDef="lluvia">
+    <th class="text-center" mat-header-cell *matHeaderCellDef> Lluvia </th>
+    <td class="text-center" mat-cell *matCellDef="let dato"> {{ dato.rain }}mm </td>
+  </ng-container>
+
+  <ng-container matColumnDef="puntoDeRocio">
+    <th class="text-center" mat-header-cell *matHeaderCellDef> Punto de Rocío </th>
+    <td class="text-center" mat-cell *matCellDef="let dato"> {{ dato.dewpoint }}°C </td>
+  </ng-container>
+
+  <ng-container matColumnDef="sensacionTermica">
+    <th class="text-center" mat-header-cell *matHeaderCellDef> Sensación Termica </th>
+    <td class="text-center" mat-cell *matCellDef="let dato"> {{ dato.heatindex }}°C </td>
+  </ng-container>
+
+  <ng-container matColumnDef="velocidadViento">
+    <th class="text-center" mat-header-cell *matHeaderCellDef> Velocidad del Viento </th>
+    <td class="text-center" mat-cell *matCellDef="let dato"> {{ dato.windSpeed }}Km/h </td>
+  </ng-container>
+
+  <ng-container matColumnDef="direccionViento">
+    <th class="text-center" mat-header-cell *matHeaderCellDef> Dirección del Viento </th>
+    <td class="text-center" mat-cell *matCellDef="let dato"> {{ obtenerDireccionViento(dato.windGust) }} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" [length]="originalData.length" (page)="onPageChange($event)"
+  showFirstLastButtons>
+</mat-paginator>

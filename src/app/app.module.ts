@@ -9,12 +9,14 @@ import { HomeComponent } from './components/home/home.component';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { MaterialModule } from './material.module'; 
+import { MaterialModule } from './material.module';
+import { RecordsModalComponent } from './components/home/records-modal/records-modal.component'; 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    RecordsModalComponent
   ],
   imports: [
     HttpClientModule,

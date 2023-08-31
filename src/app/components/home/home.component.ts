@@ -7,6 +7,9 @@ import { Cmm1Service } from '../../services/cmm1.service'
 import { Cmm2Service } from '../../services/cmm2.service'
 import { Archive } from '../../models/archive'
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
+import { RecordsModalComponent } from './records-modal/records-modal.component';
 
 const MY_DATE_FORMATS = {
   parse: {
@@ -32,7 +35,7 @@ const MY_DATE_FORMATS = {
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private viewportScroller: ViewportScroller, private cmmSvc: CmmService, private cmm1Svc: Cmm1Service, private cmm2Svc: Cmm2Service) { }
+  constructor(private dialog: MatDialog, private fb: FormBuilder, private viewportScroller: ViewportScroller, private cmmSvc: CmmService, private cmm1Svc: Cmm1Service, private cmm2Svc: Cmm2Service) { }
 
   myForm: FormGroup;
 
@@ -83,7 +86,7 @@ export class HomeComponent implements OnInit {
 
   }
 
-  buscarValores() { //TODO NO SE MUESTRA PORQUE LAS FECHAS ESTAN INVERTIDAS
+  buscarValores() {
     const startValue = this.myForm.get('start').value;
     const endValue = this.myForm.get('end').value;
 
@@ -91,23 +94,67 @@ export class HomeComponent implements OnInit {
       const formattedStartDate = this.formatDatePush(startValue);
       const formattedEndDate = this.formatDatePush(endValue);
 
-      if (this.cmmModal) {
-        this.cmmSvc.getRange(formattedStartDate, formattedEndDate).subscribe(res => {
-          this.cmmDataArray = res
-          console.log(res)
-        })
-      } else if (this.cmm1Modal) {
-        this.cmm1Svc.getRange(formattedStartDate, formattedEndDate).subscribe(res => {
-          this.cmmDataArray = res
-          console.log(res)
-        })
-      } else if (this.cmm2Modal){
-        this.cmm2Svc.getRange(formattedStartDate, formattedEndDate).subscribe(res => {
-          this.cmmDataArray = res
-          console.log(res)
-        })
+      // Verificar el rango de fechas
+      const startDate = new Date(formattedStartDate);
+      const endDate = new Date(formattedEndDate);
+      const threeMonthsLater = new Date(startDate);
+      threeMonthsLater.setMonth(threeMonthsLater.getMonth() + 3);
+
+      if (endDate > threeMonthsLater) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error en el rango de fechas',
+          text: 'El rango de fechas no puede ser superior a 3 meses.'
+        });
+        return;
       }
+
+      let cmmService: any; // Declarar la variable para el servicio apropiado
+      if (this.cmmModal) {
+        cmmService = this.cmmSvc;
+      } else if (this.cmm1Modal) {
+        cmmService = this.cmm1Svc;
+      } else if (this.cmm2Modal) {
+        cmmService = this.cmm2Svc;
+      }
+
+      if (cmmService) {
+        cmmService.getRange(formattedStartDate, formattedEndDate).subscribe(res => {
+          this.cmmDataArray = res.map(item => {
+            return {
+              ...item,
+              formattedDateTime: this.formatDateToShow(item.formattedDateTime) // Aquí formateamos la fecha
+            };
+          });
+          this.cmmDataArray = res.map(item => this.roundValuesToDecimal(item));
+        });
+      }
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Campos incompletos',
+        text: 'Ambas fechas deben ser proporcionadas.'
+      });
     }
+  }
+
+  OpenModal(formattedDateTime:string){
+    formattedDateTime = formattedDateTime.replace(/\//g, '-');
+    const cmmSelected = this.cmmModal ? '0': this.cmmModal ? '1' : '2';
+    this.dialog.open(RecordsModalComponent, {
+      height: '90vh',
+      width: '90vw',
+      data: { formattedDateTime, cmmSelected },
+    })
+  }
+
+  // Agrega esta función para formatear la fecha
+  formatDateToShow(dateString: string): string {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Los meses en JavaScript van de 0 a 11
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   }
 
   formatDatePush(date: Date): string {

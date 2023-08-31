@@ -12,6 +12,11 @@ export const Routes = [{
     route: "/cmm/:startDate/:endDate",
     controller: CmmController,
     action: "Find"
+}, {
+    method: "get",
+    route: "/cmm/:Date",
+    controller: CmmController,
+    action: "FindDay"
 },
 
 {
@@ -24,6 +29,11 @@ export const Routes = [{
     route: "/cmm1/:startDate/:endDate",
     controller: Cmm1Controller,
     action: "Find"
+}, {
+    method: "get",
+    route: "/cmm1/:Date",
+    controller: Cmm1Controller,
+    action: "FindDay"
 },
 
 {
@@ -36,5 +46,10 @@ export const Routes = [{
     route: "/cmm2/:startDate/:endDate",
     controller: Cmm2Controller,
     action: "Find"
+}, {
+    method: "get",
+    route: "/cmm2/:Date",
+    controller: Cmm2Controller,
+    action: "FindDay"
 }
 ]

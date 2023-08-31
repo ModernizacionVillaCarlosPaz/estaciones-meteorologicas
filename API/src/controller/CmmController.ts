@@ -43,7 +43,7 @@ export class CmmController {
         }
     }*/
 
-        async last(req: Request, res: Response, next: NextFunction) {
+    async last(req: Request, res: Response, next: NextFunction) {
         try {
             const results = await cmm.query(`SELECT *, DATE_FORMAT(FROM_UNIXTIME(dateTime), '%Y-%m-%d %H:%i:%s') AS formattedDateTime
             FROM archive
@@ -106,6 +106,56 @@ export class CmmController {
         GROUP BY DATE(FROM_UNIXTIME(dateTime))
         ORDER BY DATE(FROM_UNIXTIME(dateTime)) DESC;
             `, [startDate, endDate]);
+
+            res.send(results);
+        } catch (error) {
+            console.log(error)
+            res.status(500).send("Error al obtener los registros");
+        }
+    }
+
+    async FindDay(req: Request, res: Response, next: NextFunction) {
+        const Date = req.params.Date;
+
+        try {
+
+            const results = await cmm.query(`
+            SELECT
+            ROUND(usUnits, 1) AS usUnits,
+            ROUND(barometer, 1) AS barometer,
+            ROUND(pressure, 1) AS pressure,
+            ROUND(altimeter, 1) AS altimeter,
+            ROUND(inTemp, 1) AS inTemp,
+            ROUND(inTemp, 1) AS inTemp,
+            ROUND(outTemp, 1) AS outTemp,
+            ROUND(inHumidity, 1) AS inHumidity,
+            ROUND(outHumidity, 1) AS outHumidity,
+            ROUND(windSpeed, 1) AS windSpeed,
+            ROUND(windDir, 1) AS windDir,
+            ROUND(windGust, 1) AS windGust,
+            ROUND(windGustDir, 1) AS windGustDir,
+            ROUND(rainRate, 1) AS rainRate,
+            ROUND(rain, 1) AS rain,
+            ROUND(dewpoint, 1) AS dewpoint,
+            ROUND(windchill, 1) AS windchill,
+            ROUND(heatindex, 1) AS heatindex,
+            ROUND(ET, 1) AS ET,
+            ROUND(radiation, 1) AS radiation,
+            ROUND(UV, 1) AS UV,
+            ROUND(extraTemp1, 1) AS extraTemp1,
+            ROUND(extraTemp2, 1) AS extraTemp2,
+            ROUND(heatingVoltage, 1) AS heatingVoltage,
+            ROUND(supplyVoltage, 1) AS supplyVoltage,
+            ROUND(referenceVoltage, 1) AS referenceVoltage,
+            ROUND(windBatteryStatus, 1) AS windBatteryStatus,
+            ROUND(rainBatteryStatus, 1) AS rainBatteryStatus,
+            ROUND(outTempBatteryStatus, 1) AS outTempBatteryStatus,
+            ROUND(inTempBatteryStatus, 1) AS inTempBatteryStatus,
+            DATE_FORMAT(FROM_UNIXTIME(dateTime), '%d-%m-%Y' ' ' '%h:%m:%s') AS formattedDateTime
+        FROM archive
+        WHERE DATE(FROM_UNIXTIME(dateTime)) = ?
+        ORDER BY DATE(FROM_UNIXTIME(dateTime)) DESC;
+            `, [Date]); // Date esta en formato dd/mm/yyyy
 
             res.send(results);
         } catch (error) {

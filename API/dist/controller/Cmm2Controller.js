@@ -97,6 +97,32 @@ var Cmm2Controller = /** @class */ (function () {
             });
         });
     };
+    Cmm2Controller.prototype.FindDay = function (req, res, next) {
+        return __awaiter(this, void 0, void 0, function () {
+            var Date, results, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        Date = req.params.Date;
+                        console.log(Date);
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, data_source_1.cmm2.query("\n            SELECT\n            ROUND(usUnits, 1) AS usUnits,\n            ROUND(barometer, 1) AS barometer,\n            ROUND(pressure, 1) AS pressure,\n            ROUND(altimeter, 1) AS altimeter,\n            ROUND(inTemp, 1) AS inTemp,\n            ROUND(inTemp, 1) AS inTemp,\n            ROUND(outTemp, 1) AS outTemp,\n            ROUND(inHumidity, 1) AS inHumidity,\n            ROUND(outHumidity, 1) AS outHumidity,\n            ROUND(windSpeed, 1) AS windSpeed,\n            ROUND(windDir, 1) AS windDir,\n            ROUND(windGust, 1) AS windGust,\n            ROUND(windGustDir, 1) AS windGustDir,\n            ROUND(rainRate, 1) AS rainRate,\n            ROUND(rain, 1) AS rain,\n            ROUND(dewpoint, 1) AS dewpoint,\n            ROUND(windchill, 1) AS windchill,\n            ROUND(heatindex, 1) AS heatindex,\n            ROUND(ET, 1) AS ET,\n            ROUND(radiation, 1) AS radiation,\n            ROUND(UV, 1) AS UV,\n            ROUND(extraTemp1, 1) AS extraTemp1,\n            ROUND(extraTemp2, 1) AS extraTemp2,\n            ROUND(heatingVoltage, 1) AS heatingVoltage,\n            ROUND(supplyVoltage, 1) AS supplyVoltage,\n            ROUND(referenceVoltage, 1) AS referenceVoltage,\n            ROUND(windBatteryStatus, 1) AS windBatteryStatus,\n            ROUND(rainBatteryStatus, 1) AS rainBatteryStatus,\n            ROUND(outTempBatteryStatus, 1) AS outTempBatteryStatus,\n            ROUND(inTempBatteryStatus, 1) AS inTempBatteryStatus,\n            DATE_FORMAT(FROM_UNIXTIME(dateTime), '%d-%m-%Y' ' ' '%h:%m:%s') AS formattedDateTime\n        FROM archive\n        WHERE DATE(FROM_UNIXTIME(dateTime)) = ?\n        ORDER BY DATE(FROM_UNIXTIME(dateTime)) DESC;\n            ", [Date])];
+                    case 2:
+                        results = _a.sent();
+                        res.send(results);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_3 = _a.sent();
+                        console.log(error_3);
+                        res.status(500).send("Error al obtener los registros");
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
     return Cmm2Controller;
 }());
 exports.Cmm2Controller = Cmm2Controller;
