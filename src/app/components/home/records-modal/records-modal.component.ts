@@ -76,8 +76,4 @@ export class RecordsModalComponent implements OnInit {
     return direcciones[indice];
   }
 
-  obtenerHora(hora: string): string {
-    const horaFormateada = hora.substring(11, 16);
-    return horaFormateada;
-  }
 }

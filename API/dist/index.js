@@ -39,20 +39,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var bodyParser = require("body-parser");
 var routes_1 = require("./routes");
-var data_source_1 = require("./data-source"); // Import your data sources here
+var data_source_1 = require("./data-source"); // Importa tus fuentes de datos aquí
 var cors = require('cors');
-var portCmm = 3000; // Puerto para cmm
-var portCmm1 = 3001; // Puerto para cmm1
-var portCmm2 = 3002; // Puerto para cmm2
-function initializeServer(connection, connectionName, port) {
+var port = process.env.PORT || 3000; // Puerto único para todos los servidores
+var corsOrigin = process.env.NODE_ENV === "production" ? process.env.CORS_ORIGIN_PROD : "http://localhost:4200";
+function initializeServer(connection, connectionName, app) {
     var _this = this;
     connection.initialize().then(function () { return __awaiter(_this, void 0, void 0, function () {
-        var app, rateLimiter;
+        var rateLimiter;
         return __generator(this, function (_a) {
-            app = express();
             app.use(cors({
-                origin: "http://localhost:4200",
-                methods: ["GET"],
+                origin: corsOrigin,
+                methods: ["GET"], // Permitir estos métodos HTTP
             }));
             rateLimiter = cors({
                 max: 50,
@@ -61,14 +59,14 @@ function initializeServer(connection, connectionName, port) {
                 maxAgeMs: 3600000,
                 onLimit: function (req, res, next) {
                     res.status(429).send({
-                        message: "Demaciadas consultas. Intenta nuevamente en una hora.",
+                        message: "Demasiadas consultas. Intente nuevamente en una hora.",
                     });
                 },
             });
             app.use(rateLimiter);
             app.use(bodyParser.json());
             app.use(function (req, res, next) {
-                res.header("Access-Control-Allow-Origin", "*"); // Puedes restringir esto a dominios específicos si es necesario
+                res.header("Access-Control-Allow-Origin", "*");
                 res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
                 res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
                 next();
@@ -84,16 +82,17 @@ function initializeServer(connection, connectionName, port) {
                     }
                 });
             });
-            app.listen(port, function () {
-                console.log("Conexi\u00F3n a ".concat(connectionName, " exitosa"));
-                console.log("Express server has started on port ".concat(port));
-            });
+            console.log("Conexi\u00F3n a ".concat(connectionName, " exitosa"));
             return [2 /*return*/];
         });
     }); }).catch(function (error) { return console.log(error); });
 }
-// Inicializar servidores con diferentes puertos
-initializeServer(data_source_1.cmm, "cmm", portCmm);
-initializeServer(data_source_1.cmm1, "cmm1", portCmm1);
-initializeServer(data_source_1.cmm2, "cmm2", portCmm2);
+var app = express();
+// Inicializa los servidores con el mismo puerto
+initializeServer(data_source_1.cmm, "cmm", app);
+initializeServer(data_source_1.cmm1, "cmm1", app);
+initializeServer(data_source_1.cmm2, "cmm2", app);
+app.listen(port, function () {
+    console.log("Express server has started on port ".concat(port));
+});
 //# sourceMappingURL=index.js.map

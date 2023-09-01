@@ -7,7 +7,6 @@ import { environment } from './../../environments/environment';
   providedIn: 'root'
 })
 export class CmmService {
-  API_URI = 'http://localhost:3000'
   Swal: any;
   constructor(private http: HttpClient) { }
 

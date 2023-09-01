@@ -1,17 +1,17 @@
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z3">
   <ng-container matColumnDef="hora">
     <th class="text-center" mat-header-cell *matHeaderCellDef> Hora </th>
-    <td class="text-center" mat-cell *matCellDef="let dato"> {{ obtenerHora(dato.formattedDateTime) }} </td>
+    <td class="text-center" mat-cell *matCellDef="let dato"> {{ dato.formattedDateTime }} </td>
   </ng-container>
 
   <ng-container matColumnDef="temperatura">
     <th class="text-center" mat-header-cell *matHeaderCellDef> Temperatura </th>
-    <td class="text-center" mat-cell *matCellDef="let dato"> {{ dato.inTemp }}°C </td>
+    <td class="text-center" mat-cell *matCellDef="let dato"> {{ dato.outTemp }}°C </td>
   </ng-container>
 
   <ng-container matColumnDef="humedad">
     <th class="text-center" mat-header-cell *matHeaderCellDef> Humedad </th>
-    <td class="text-center" mat-cell *matCellDef="let dato"> {{ dato.inHumidity }}% </td>
+    <td class="text-center" mat-cell *matCellDef="let dato"> {{ dato.outHumidity }}% </td>
   </ng-container>
 
   <ng-container matColumnDef="presion">

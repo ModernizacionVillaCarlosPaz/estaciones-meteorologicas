@@ -71,17 +71,14 @@ export class HomeComponent implements OnInit {
     this.cmmSvc.getLast().subscribe(res => {
       this.cmmLastData = this.roundValuesToDecimal(res[0]);
       this.cmmLoading = false;
-      console.log(this.cmmLastData)
     })
     this.cmm1Svc.getLast().subscribe(res => {
       this.cmm1LastData = this.roundValuesToDecimal(res[0]);
       this.cmm1Loading = false;
-      console.log(this.cmm1LastData)
     })
     this.cmm2Svc.getLast().subscribe(res => {
       this.cmm2LastData = this.roundValuesToDecimal(res[0]);
       this.cmm2Loading = false;
-      console.log(this.cmm2LastData)
     })
 
   }
@@ -150,11 +147,14 @@ export class HomeComponent implements OnInit {
 
   // Agrega esta función para formatear la fecha
   formatDateToShow(dateString: string): string {
-    const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.getMonth() + 1; // Los meses en JavaScript van de 0 a 11
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
+    const dateParts = dateString.split('-');
+    if (dateParts.length === 3) {
+      const [year, month, day] = dateParts;
+      return `${day}/${month}/${year}`;
+    } else {
+      // Manejar el caso en el que la cadena de fecha no tiene el formato esperado
+      return 'Fecha inválida';
+    }
   }
 
   formatDatePush(date: Date): string {
@@ -253,7 +253,6 @@ export class HomeComponent implements OnInit {
           this.cmm2Modal = false
           this.cmmSvc.getRange(this.getDates().sevenDaysAgo, this.getDates().currentDate).subscribe(res => {
             this.cmmDataArray = res
-            console.log(res)
           })
           this.viewportScroller.scrollToAnchor('cmmData');
         }
@@ -269,7 +268,6 @@ export class HomeComponent implements OnInit {
           this.cmm2Modal = false
           this.cmm1Svc.getRange(this.getDates().sevenDaysAgo, this.getDates().currentDate).subscribe(res => {
             this.cmmDataArray = res
-            console.log(res)
           })
           this.viewportScroller.scrollToAnchor('cmmData');
         }
@@ -285,7 +283,6 @@ export class HomeComponent implements OnInit {
           this.cmmModal = false
           this.cmm2Svc.getRange(this.getDates().sevenDaysAgo, this.getDates().currentDate).subscribe(res => {
             this.cmmDataArray = res
-            console.log(res)
           })
           this.viewportScroller.scrollToAnchor('cmmData');
         }

@@ -7,20 +7,19 @@ import { environment } from './../../environments/environment';
   providedIn: 'root'
 })
 export class Cmm2Service {
-  API_URI = 'http://localhost:3002'
   Swal: any;
   constructor(private http: HttpClient) { }
 
   getLast(): Observable<any> {
-    return this.http.get(`${environment.API_URL2}/cmm2`);
+    return this.http.get(`${environment.API_URL}/cmm2`);
   }
 
   getRange(startDate:string, endDate:string): Observable<any> {
-    return this.http.get(`${environment.API_URL2}/cmm2/${startDate}/${endDate}`);
+    return this.http.get(`${environment.API_URL}/cmm2/${startDate}/${endDate}`);
   }
 
   getDay(Date:string): Observable<any> {
-    return this.http.get(`${environment.API_URL2}/cmm2/${Date}`);
+    return this.http.get(`${environment.API_URL}/cmm2/${Date}`);
   }
   
 }

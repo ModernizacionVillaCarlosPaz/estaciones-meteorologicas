@@ -70,41 +70,41 @@ export class CmmController {
 
             const results = await cmm.query(`
             SELECT
-            ROUND(AVG(usUnits), 1) AS avg_usUnits,
-            ROUND(AVG(barometer), 1) AS avg_barometer,
-            ROUND(AVG(pressure), 1) AS avg_pressure,
-            ROUND(AVG(altimeter), 1) AS avg_altimeter,
-            ROUND(MAX(inTemp), 1) AS inTempMax,
-            ROUND(MIN(inTemp), 1) AS inTempMin,
-            ROUND(AVG(outTemp), 1) AS avg_outTemp,
-            ROUND(AVG(inHumidity), 1) AS avg_inHumidity,
-            ROUND(AVG(outHumidity), 1) AS avg_outHumidity,
-            ROUND(AVG(windSpeed), 1) AS avg_windSpeed,
-            ROUND(AVG(windDir), 1) AS avg_windDir,
-            ROUND(AVG(windGust), 1) AS avg_windGust,
-            ROUND(AVG(windGustDir), 1) AS avg_windGustDir,
-            ROUND(AVG(rainRate), 1) AS avg_rainRate,
-            ROUND(AVG(rain), 1) AS avg_rain,
-            ROUND(AVG(dewpoint), 1) AS avg_dewpoint,
-            ROUND(AVG(windchill), 1) AS avg_windchill,
-            ROUND(AVG(heatindex), 1) AS avg_heatindex,
-            ROUND(AVG(ET), 1) AS avg_ET,
-            ROUND(AVG(radiation), 1) AS avg_radiation,
-            ROUND(AVG(UV), 1) AS avg_UV,
-            ROUND(AVG(extraTemp1), 1) AS avg_extraTemp1,
-            ROUND(AVG(extraTemp2), 1) AS avg_extraTemp2,
-            ROUND(AVG(heatingVoltage), 1) AS avg_heatingVoltage,
-            ROUND(AVG(supplyVoltage), 1) AS avg_supplyVoltage,
-            ROUND(AVG(referenceVoltage), 1) AS avg_referenceVoltage,
-            ROUND(AVG(windBatteryStatus), 1) AS avg_windBatteryStatus,
-            ROUND(AVG(rainBatteryStatus), 1) AS avg_rainBatteryStatus,
-            ROUND(AVG(outTempBatteryStatus), 1) AS avg_outTempBatteryStatus,
-            ROUND(AVG(inTempBatteryStatus), 1) AS avg_inTempBatteryStatus,
-            DATE_FORMAT(FROM_UNIXTIME(dateTime), '%Y-%m-%d') AS formattedDateTime
-        FROM archive
-        WHERE DATE(FROM_UNIXTIME(dateTime)) BETWEEN ? AND ?
-        GROUP BY DATE(FROM_UNIXTIME(dateTime))
-        ORDER BY DATE(FROM_UNIXTIME(dateTime)) DESC;
+                ROUND(AVG(usUnits), 1) AS avg_usUnits,
+                ROUND(AVG(barometer), 1) AS avg_barometer,
+                ROUND(AVG(pressure), 1) AS avg_pressure,
+                ROUND(AVG(altimeter), 1) AS avg_altimeter,
+                ROUND(MAX(outTemp), 1) AS outTempMax,
+                ROUND(MIN(outTemp), 1) AS outTempMin,
+                ROUND(AVG(outTemp), 1) AS avg_outTemp,
+                ROUND(AVG(inHumidity), 1) AS avg_inHumidity,
+                ROUND(AVG(outHumidity), 1) AS avg_outHumidity,
+                ROUND(AVG(windSpeed), 1) AS avg_windSpeed,
+                ROUND(AVG(windDir), 1) AS avg_windDir,
+                ROUND(AVG(windGust), 1) AS avg_windGust,
+                ROUND(AVG(windGustDir), 1) AS avg_windGustDir,
+                ROUND(AVG(rainRate), 1) AS avg_rainRate,
+                ROUND(AVG(rain), 1) AS avg_rain,
+                ROUND(AVG(dewpoint), 1) AS avg_dewpoint,
+                ROUND(AVG(windchill), 1) AS avg_windchill,
+                ROUND(AVG(heatindex), 1) AS avg_heatindex,
+                ROUND(AVG(ET), 1) AS avg_ET,
+                ROUND(AVG(radiation), 1) AS avg_radiation,
+                ROUND(AVG(UV), 1) AS avg_UV,
+                ROUND(AVG(extraTemp1), 1) AS avg_extraTemp1,
+                ROUND(AVG(extraTemp2), 1) AS avg_extraTemp2,
+                ROUND(AVG(heatingVoltage), 1) AS avg_heatingVoltage,
+                ROUND(AVG(supplyVoltage), 1) AS avg_supplyVoltage,
+                ROUND(AVG(referenceVoltage), 1) AS avg_referenceVoltage,
+                ROUND(AVG(windBatteryStatus), 1) AS avg_windBatteryStatus,
+                ROUND(AVG(rainBatteryStatus), 1) AS avg_rainBatteryStatus,
+                ROUND(AVG(outTempBatteryStatus), 1) AS avg_outTempBatteryStatus,
+                ROUND(AVG(inTempBatteryStatus), 1) AS avg_inTempBatteryStatus,
+                DATE_FORMAT(FROM_UNIXTIME(dateTime), '%Y-%m-%d') AS formattedDateTime
+            FROM archive
+            WHERE FROM_UNIXTIME(dateTime) BETWEEN ? AND ?
+            GROUP BY DATE(FROM_UNIXTIME(dateTime))
+            ORDER BY DATE(FROM_UNIXTIME(dateTime)) DESC;
             `, [startDate, endDate]);
 
             res.send(results);
@@ -125,7 +125,6 @@ export class CmmController {
             ROUND(barometer, 1) AS barometer,
             ROUND(pressure, 1) AS pressure,
             ROUND(altimeter, 1) AS altimeter,
-            ROUND(inTemp, 1) AS inTemp,
             ROUND(inTemp, 1) AS inTemp,
             ROUND(outTemp, 1) AS outTemp,
             ROUND(inHumidity, 1) AS inHumidity,
@@ -151,7 +150,7 @@ export class CmmController {
             ROUND(rainBatteryStatus, 1) AS rainBatteryStatus,
             ROUND(outTempBatteryStatus, 1) AS outTempBatteryStatus,
             ROUND(inTempBatteryStatus, 1) AS inTempBatteryStatus,
-            DATE_FORMAT(FROM_UNIXTIME(dateTime), '%d-%m-%Y' ' ' '%h:%m:%s') AS formattedDateTime
+            DATE_FORMAT(FROM_UNIXTIME(dateTime), '%H:%i') AS formattedDateTime
         FROM archive
         WHERE DATE(FROM_UNIXTIME(dateTime)) = ?
         ORDER BY DATE(FROM_UNIXTIME(dateTime)) DESC;
