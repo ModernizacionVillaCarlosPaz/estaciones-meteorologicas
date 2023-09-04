@@ -5,6 +5,10 @@ import { MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
 import { CmmService } from '../../services/cmm.service'
 import { Cmm1Service } from '../../services/cmm1.service'
 import { Cmm2Service } from '../../services/cmm2.service'
+//import { Cmm3Service } from '../../services/cmm3.service'
+//import { Cmm4Service } from '../../services/cmm4.service'
+//import { Cmm5Service } from '../../services/cmm5.service'
+//import { Cmm6Service } from '../../services/cmm6.service'
 import { Archive } from '../../models/archive'
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -35,26 +39,50 @@ const MY_DATE_FORMATS = {
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private dialog: MatDialog, private fb: FormBuilder, private viewportScroller: ViewportScroller, private cmmSvc: CmmService, private cmm1Svc: Cmm1Service, private cmm2Svc: Cmm2Service) { }
+  constructor(private dialog: MatDialog, private fb: FormBuilder, private viewportScroller: ViewportScroller, private cmmSvc: CmmService, private cmm1Svc: Cmm1Service, private cmm2Svc: Cmm2Service /*, private cmm3Svc: Cmm3Service, private cmm4Svc: Cmm4Service, private cmm5Svc: Cmm5Service, private cmm6Svc: Cmm6Service*/) { }
 
   myForm: FormGroup;
 
   cmm: boolean = true;
+  cmmName: string = 'Municipalidad, Villa Carlos Paz';
   cmm1: boolean = true;
+  cmm1Name: string = 'San Antonio, Córdoba';
   cmm2: boolean = true;
+  cmm2Name: string = 'Colegio Dante Alighieri, Villa Carlos Paz';
+  cmm3: boolean = false;
+  cmm3Name: string = 'Cuesta Blanca, Córdoba';
+  cmm4: boolean = false;
+  cmm4Name: string = 'Centro Ambiental, Villa Carlos Paz';
+  cmm5: boolean = false;
+  cmm5Name: string = 'UGBIM, Distrito Este';
+  cmm6: boolean = false;
+  cmm6Name: string = 'UGBIM, Distrito Sur';
 
   cmmModal: boolean = false;
   cmm1Modal: boolean = false;
   cmm2Modal: boolean = false;
+  cmm3Modal: boolean = false;
+  cmm4Modal: boolean = false;
+  cmm5Modal: boolean = false;
+  cmm6Modal: boolean = false;
+
   modal: boolean = false;
 
   cmmLastData: Archive = {};
   cmm1LastData: Archive = {};
   cmm2LastData: Archive = {};
+  cmm3LastData: Archive = {};
+  cmm4LastData: Archive = {};
+  cmm5LastData: Archive = {};
+  cmm6LastData: Archive = {};
 
   cmmLoading: boolean = true;
   cmm1Loading: boolean = true;
   cmm2Loading: boolean = true;
+  cmm3Loading: boolean = true;
+  cmm4Loading: boolean = true;
+  cmm5Loading: boolean = true;
+  cmm6Loading: boolean = true;
 
   cmmDataArray: Archive[] = []
 
@@ -81,6 +109,24 @@ export class HomeComponent implements OnInit {
       this.cmm2Loading = false;
     })
 
+/*
+    this.cmm3Svc.getLast().subscribe(res => {
+      this.cmm3LastData = this.roundValuesToDecimal(res[0]);
+      this.cmm3Loading = false;
+    })
+    this.cmm4Svc.getLast().subscribe(res => {
+      this.cmm4LastData = this.roundValuesToDecimal(res[0]);
+      this.cmm4Loading = false;
+    })
+    this.cmm5Svc.getLast().subscribe(res => {
+      this.cmm5LastData = this.roundValuesToDecimal(res[0]);
+      this.cmm5Loading = false;
+    })
+    this.cmm6Svc.getLast().subscribe(res => {
+      this.cmm6LastData = this.roundValuesToDecimal(res[0]);
+      this.cmm6Loading = false;
+    })
+*/
   }
 
   buscarValores() {
@@ -113,7 +159,16 @@ export class HomeComponent implements OnInit {
         cmmService = this.cmm1Svc;
       } else if (this.cmm2Modal) {
         cmmService = this.cmm2Svc;
+      }/*else if (this.cmm3Modal) {
+        cmmService = this.cmm3Svc;
+      }else if (this.cmm4Modal) {
+        cmmService = this.cmm4Svc;
+      }else if (this.cmm5Modal) {
+        cmmService = this.cmm5Svc;
+      }else if (this.cmm6Modal) {
+        cmmService = this.cmm6Svc;
       }
+      */
 
       if (cmmService) {
         cmmService.getRange(formattedStartDate, formattedEndDate).subscribe(res => {
@@ -135,9 +190,9 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  OpenModal(formattedDateTime:string){
+  OpenModal(formattedDateTime: string) {
     formattedDateTime = formattedDateTime.replace(/\//g, '-');
-    const cmmSelected = this.cmmModal ? '0': this.cmmModal ? '1' : '2';
+    const cmmSelected = this.cmmModal ? '0' : this.cmmModal ? '1' : '2';
     this.dialog.open(RecordsModalComponent, {
       height: '90vh',
       width: '90vw',
@@ -251,6 +306,10 @@ export class HomeComponent implements OnInit {
           this.modal = true
           this.cmm1Modal = false
           this.cmm2Modal = false
+          this.cmm3Modal = false
+          this.cmm4Modal = false
+          this.cmm5Modal = false
+          this.cmm6Modal = false
           this.cmmSvc.getRange(this.getDates().sevenDaysAgo, this.getDates().currentDate).subscribe(res => {
             this.cmmDataArray = res
           })
@@ -266,6 +325,10 @@ export class HomeComponent implements OnInit {
           this.modal = true
           this.cmmModal = false
           this.cmm2Modal = false
+          this.cmm3Modal = false
+          this.cmm4Modal = false
+          this.cmm5Modal = false
+          this.cmm6Modal = false
           this.cmm1Svc.getRange(this.getDates().sevenDaysAgo, this.getDates().currentDate).subscribe(res => {
             this.cmmDataArray = res
           })
@@ -279,14 +342,95 @@ export class HomeComponent implements OnInit {
         } else {
           this.cmm2Modal = true
           this.modal = true
-          this.cmm1Modal = false
           this.cmmModal = false
+          this.cmm1Modal = false
+          this.cmm3Modal = false
+          this.cmm4Modal = false
+          this.cmm5Modal = false
+          this.cmm6Modal = false
           this.cmm2Svc.getRange(this.getDates().sevenDaysAgo, this.getDates().currentDate).subscribe(res => {
             this.cmmDataArray = res
           })
           this.viewportScroller.scrollToAnchor('cmmData');
         }
         break;
+        /*
+        case 3:
+          if (this.cmm3Modal) {
+            this.cmm3Modal = false
+            this.modal = false
+          } else {
+            this.cmm3Modal = true
+            this.modal = true
+            this.cmmModal = false
+            this.cmm1Modal = false
+            this.cmm2Modal = false
+            this.cmm4Modal = false
+            this.cmm5Modal = false
+            this.cmm6Modal = false
+            this.cmm3Svc.getRange(this.getDates().sevenDaysAgo, this.getDates().currentDate).subscribe(res => {
+              this.cmmDataArray = res
+            })
+            this.viewportScroller.scrollToAnchor('cmmData');
+          }
+          break;
+          case 4:
+          if (this.cmm4Modal) {
+            this.cmm4Modal = false
+            this.modal = false
+          } else {
+            this.cmm3Modal = true
+            this.modal = true
+            this.cmmModal = false
+            this.cmm1Modal = false
+            this.cmm2Modal = false
+            this.cmm3Modal = false
+            this.cmm5Modal = false
+            this.cmm6Modal = false
+            this.cmm4Svc.getRange(this.getDates().sevenDaysAgo, this.getDates().currentDate).subscribe(res => {
+              this.cmmDataArray = res
+            })
+            this.viewportScroller.scrollToAnchor('cmmData');
+          }
+          break;
+          case 5:
+          if (this.cmm5Modal) {
+            this.cmm5Modal = false
+            this.modal = false
+          } else {
+            this.cmm5Modal = true
+            this.modal = true
+            this.cmmModal = false
+            this.cmm1Modal = false
+            this.cmm2Modal = false
+            this.cmm3Modal = false
+            this.cmm4Modal = false
+            this.cmm6Modal = false
+            this.cmm5Svc.getRange(this.getDates().sevenDaysAgo, this.getDates().currentDate).subscribe(res => {
+              this.cmmDataArray = res
+            })
+            this.viewportScroller.scrollToAnchor('cmmData');
+          }
+          break;
+          case 6:
+          if (this.cmm6Modal) {
+            this.cmm6Modal = false
+            this.modal = false
+          } else {
+            this.cmm6Modal = true
+            this.modal = true
+            this.cmmModal = false
+            this.cmm1Modal = false
+            this.cmm2Modal = false
+            this.cmm3Modal = false
+            this.cmm4Modal = false
+            this.cmm5Modal = false
+            this.cmm6Svc.getRange(this.getDates().sevenDaysAgo, this.getDates().currentDate).subscribe(res => {
+              this.cmmDataArray = res
+            })
+            this.viewportScroller.scrollToAnchor('cmmData');
+          }
+          break;*/
     }
   }
 

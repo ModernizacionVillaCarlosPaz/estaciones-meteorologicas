@@ -48,6 +48,6 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-<mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" [length]="originalData.length" (page)="onPageChange($event)"
+<mat-paginator [pageSizeOptions]="[15, 20, 30, 40]" [length]="originalData.length" (page)="onPageChange($event)"
   showFirstLastButtons>
 </mat-paginator>
