@@ -7,7 +7,7 @@ import { environment } from './../../environments/environment';
   providedIn: 'root'
 })
 export class CmmService {
-  Swal: any;
+  API_URI = 'http://localhost:3000'
   constructor(private http: HttpClient) { }
 
   getLast(): Observable<any> {

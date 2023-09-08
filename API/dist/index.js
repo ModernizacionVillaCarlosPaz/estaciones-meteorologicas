@@ -39,53 +39,44 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var bodyParser = require("body-parser");
 var routes_1 = require("./routes");
+var helmet_1 = require("helmet");
 var data_source_1 = require("./data-source"); // Importa tus fuentes de datos aquí
 var cors = require('cors');
 var port = process.env.PORT || 3000; // Puerto único para todos los servidores
-var corsOrigin = process.env.NODE_ENV === "production" ? process.env.CORS_ORIGIN_PROD : "http://localhost:4200";
 function initializeServer(connection, connectionName, app) {
-    var _this = this;
-    connection.initialize().then(function () { return __awaiter(_this, void 0, void 0, function () {
-        var rateLimiter;
+    return __awaiter(this, void 0, void 0, function () {
+        var error_1;
         return __generator(this, function (_a) {
-            app.use(cors({
-                origin: corsOrigin,
-                methods: ["GET"], // Permitir estos métodos HTTP
-            }));
-            rateLimiter = cors({
-                max: 50,
-                windowMs: 1000,
-                individualLimit: true,
-                maxAgeMs: 3600000,
-                onLimit: function (req, res, next) {
-                    res.status(429).send({
-                        message: "Demasiadas consultas. Intente nuevamente en una hora.",
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, connection.initialize()];
+                case 1:
+                    _a.sent();
+                    app.use(cors());
+                    app.use((0, helmet_1.default)());
+                    app.use(bodyParser.json());
+                    routes_1.Routes.forEach(function (route) {
+                        app[route.method](route.route, function (req, res, next) {
+                            var result = (new route.controller)[route.action](req, res, next);
+                            if (result instanceof Promise) {
+                                result.then(function (result) { return result !== null && result !== undefined ? res.send(result) : undefined; });
+                            }
+                            else if (result !== null && result !== undefined) {
+                                res.json(result);
+                            }
+                        });
                     });
-                },
-            });
-            app.use(rateLimiter);
-            app.use(bodyParser.json());
-            app.use(function (req, res, next) {
-                res.header("Access-Control-Allow-Origin", "*");
-                res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-                res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-                next();
-            });
-            routes_1.Routes.forEach(function (route) {
-                app[route.method](route.route, function (req, res, next) {
-                    var result = (new route.controller)[route.action](req, res, next);
-                    if (result instanceof Promise) {
-                        result.then(function (result) { return result !== null && result !== undefined ? res.send(result) : undefined; });
-                    }
-                    else if (result !== null && result !== undefined) {
-                        res.json(result);
-                    }
-                });
-            });
-            console.log("Conexi\u00F3n a ".concat(connectionName, " exitosa"));
-            return [2 /*return*/];
+                    console.log("Conexi\u00F3n a ".concat(connectionName, " exitosa"));
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_1 = _a.sent();
+                    console.log(error_1);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
         });
-    }); }).catch(function (error) { return console.log(error); });
+    });
 }
 var app = express();
 // Inicializa los servidores con el mismo puerto
@@ -93,6 +84,6 @@ initializeServer(data_source_1.cmm, "cmm", app);
 initializeServer(data_source_1.cmm1, "cmm1", app);
 initializeServer(data_source_1.cmm2, "cmm2", app);
 app.listen(port, function () {
-    console.log("Express server has started on port ".concat(port));
+    console.log("El servidor Express se ha iniciado en el puerto ".concat(port));
 });
 //# sourceMappingURL=index.js.map
