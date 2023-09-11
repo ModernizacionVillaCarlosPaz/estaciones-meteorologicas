@@ -6,7 +6,7 @@ import helmet from 'helmet';
 import { cmm, cmm1, cmm2 } from "./data-source"; // Importa tus fuentes de datos aquí
 const cors = require('cors');
 
-const port = process.env.PORT || 3000; // Puerto único para todos los servidores
+const port = process.env.PORT || 3000; // 3300 produccion
 
 async function initializeServer(connection, connectionName, app) {
     try {
