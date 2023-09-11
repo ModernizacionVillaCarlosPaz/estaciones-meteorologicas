@@ -47,7 +47,7 @@ export const cmm2 = new DataSource({
 })
 
 /*
-exports.cmm = new typeorm_1.DataSource({
+export const cmm = new DataSource({
     name: "cmm",
     type: "mysql",
     host: "207.7.84.116",
@@ -61,7 +61,7 @@ exports.cmm = new typeorm_1.DataSource({
     migrations: ["dist/migration"],
     subscribers: ["dist/subscriber"],
 });
-exports.cmm1 = new typeorm_1.DataSource({
+export const cmm1 = new DataSource({
     name: "cmm1",
     type: "mysql",
     host: "207.7.84.116",
@@ -75,7 +75,7 @@ exports.cmm1 = new typeorm_1.DataSource({
     migrations: ["dist/migration"],
     subscribers: ["dist/subscriber"],
 });
-exports.cmm2 = new typeorm_1.DataSource({
+export const cmm2 = new DataSource({
     name: "cmm2",
     type: "mysql",
     host: "207.7.84.116",
@@ -88,5 +88,4 @@ exports.cmm2 = new typeorm_1.DataSource({
     entities: ["dist/entity/*.js"],
     migrations: ["dist/migration"],
     subscribers: ["dist/subscriber"],
-});
-*/
+});*/

@@ -148,3 +148,17 @@ body {
     z-index: -1;
     background: url(http://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
 }
+
+.fullh {
+    height: 100%;
+}
+
+@media (max-width: 575px) {
+    .col-sm-3{
+    border-bottom: rgba(0, 0, 0, 0.12) solid 1px;
+    margin-bottom: 20px;
+    }
+    .noMostrar{
+    display: none;
+    }
+}

@@ -11,3 +11,7 @@ pm2 list //muestra apis
 pm2 restart all //restart a todas las apis
 ps -aux |grep node //ver procesos activos
 killall (nombre del proceso) // mata todos los procesos con el nombre
+
+Coneccion con ciudad intelig:
+user: ciudadintelig_em_telemetriamvcp
+pass: MDx}p%1*RE?U

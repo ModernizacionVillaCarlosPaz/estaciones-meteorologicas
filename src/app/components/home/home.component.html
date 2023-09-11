@@ -25,11 +25,11 @@
                 <div class="container py-5 h-100">
 
                     <div class="row d-flex justify-content-center align-items-center h-100" style="color: #282828;">
-                        <div class="col-xl-11 bgc" *ngIf="cmmLoading" style="min-height: 55vh;">
+                        <div class="col-xl-11 bgc fullh" *ngIf="cmmLoading" style="min-height: 55vh;">
                             <mat-progress-bar mode="indeterminate">
                             </mat-progress-bar>
                         </div>
-                        <div class="col-xl-11 bgc" *ngIf="!cmmLoading">
+                        <div class="col-xl-11 bgc fullh fullh" *ngIf="!cmmLoading">
 
                             <div class="card mb-4 gradient-custom" style="border-radius: 25px;">
                                 <div class="card-body p-4">
@@ -178,7 +178,7 @@
                                         <div>
                                             <div>
                                                 <div class="row">
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmmLastData.outTemp}}°C</strong></p>
                                                         <svg style="margin-right: 20px" height="60px"
                                                             viewBox="-42 0 512 512" width="60px"
@@ -224,7 +224,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Temperatura</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmmLastData.outHumidity}}%</strong>
                                                         </p>
                                                         <svg height="55px" viewBox="-38 0 420 420.192" width="55px"
@@ -267,7 +267,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Humedad</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmmLastData.pressure}}hPa</strong>
                                                         </p>
                                                         <svg height="55px" viewBox="0 0 512 512" width="55px"
@@ -290,7 +290,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Presión</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmmLastData.rain}}mm</strong></p>
                                                         <svg height="45.541px" viewBox="0 -7 512 512" width="47.542px"
                                                             xmlns="http://www.w3.org/2000/svg">
@@ -370,7 +370,7 @@
                                         <div class="">
                                             <div class="">
                                                 <div class="row">
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmmLastData.dewpoint}}°C</strong>
                                                         </p>
                                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -427,7 +427,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Punto de<br> rocío</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmmLastData.heatindex}}°C</strong>
                                                         </p>
                                                         <svg style="margin-right: 20px" height="70px"
@@ -537,7 +537,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Sensación<br> térmica</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmmLastData.windSpeed}}Km/h</strong>
                                                         </p>
                                                         <svg height="55px" viewBox="0 -23 511.99037 511" width="55px"
@@ -592,7 +592,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Velocidad del<br> viento</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium">
                                                             <strong>{{obtenerDireccionViento(cmmLastData.windDir)}}</strong>
                                                         </p>
@@ -677,11 +677,11 @@
                 <div class="container py-5 h-100">
 
                     <div class="row d-flex justify-content-center align-items-center h-100" style="color: #282828;">
-                        <div class="col-xl-11 bgc" *ngIf="cmm1Loading" style="min-height: 55vh;">
+                        <div class="col-xl-11 bgc fullh" *ngIf="cmm1Loading" style="min-height: 55vh;">
                             <mat-progress-bar mode="indeterminate">
                             </mat-progress-bar>
                         </div>
-                        <div class="col-xl-11 bgc" *ngIf="!cmm1Loading">
+                        <div class="col-xl-11 bgc fullh" *ngIf="!cmm1Loading">
 
                             <div class="card mb-4 gradient-custom" style="border-radius: 25px;">
                                 <div class="card-body p-4">
@@ -830,7 +830,7 @@
                                         <div>
                                             <div>
                                                 <div class="row">
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm1LastData.outTemp}}°C</strong>
                                                         </p>
                                                         <svg style="margin-right: 20px" height="60px"
@@ -877,7 +877,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Temperatura</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm1LastData.outHumidity}}%</strong>
                                                         </p>
                                                         <svg height="55px" viewBox="-38 0 420 420.192" width="55px"
@@ -920,7 +920,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Humedad</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm1LastData.pressure}}hPa</strong>
                                                         </p>
                                                         <svg height="55px" viewBox="0 0 512 512" width="55px"
@@ -943,7 +943,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Presión</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm1LastData.rain}}mm</strong></p>
                                                         <svg height="45.541px" viewBox="0 -7 512 512" width="47.542px"
                                                             xmlns="http://www.w3.org/2000/svg">
@@ -1023,7 +1023,7 @@
                                         <div class="">
                                             <div class="">
                                                 <div class="row">
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm1LastData.dewpoint}}°C</strong>
                                                         </p>
                                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -1080,7 +1080,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Punto de<br> rocío</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm1LastData.heatindex}}°C</strong>
                                                         </p>
                                                         <svg style="margin-right: 20px" height="70px"
@@ -1190,7 +1190,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Sensación<br> térmica</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium">
                                                             <strong>{{cmm1LastData.windSpeed}}Km/h</strong>
                                                         </p>
@@ -1246,7 +1246,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Velocidad del<br> viento</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium">
                                                             <strong>{{obtenerDireccionViento(cmm1LastData.windDir)}}</strong>
                                                         </p>
@@ -1331,11 +1331,11 @@
                 <div class="container py-5 h-100">
 
                     <div class="row d-flex justify-content-center align-items-center h-100" style="color: #282828;">
-                        <div class="col-xl-11 bgc" *ngIf="cmm2Loading" style="min-height: 55vh;">
+                        <div class="col-xl-11 bgc fullh" *ngIf="cmm2Loading" style="min-height: 55vh;">
                             <mat-progress-bar mode="indeterminate">
                             </mat-progress-bar>
                         </div>
-                        <div class="col-xl-11 bgc" *ngIf="!cmm2Loading">
+                        <div class="col-xl-11 bgc fullh" *ngIf="!cmm2Loading">
 
                             <div class="card mb-4 gradient-custom" style="border-radius: 25px;">
                                 <div class="card-body p-4">
@@ -1484,7 +1484,7 @@
                                         <div>
                                             <div>
                                                 <div class="row">
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm2LastData.outTemp}}°C</strong>
                                                         </p>
                                                         <svg style="margin-right: 20px" height="60px"
@@ -1531,7 +1531,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Temperatura</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm2LastData.outHumidity}}%</strong>
                                                         </p>
                                                         <svg height="55px" viewBox="-38 0 420 420.192" width="55px"
@@ -1574,7 +1574,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Humedad</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm2LastData.pressure}}hPa</strong>
                                                         </p>
                                                         <svg height="55px" viewBox="0 0 512 512" width="55px"
@@ -1597,7 +1597,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Presión</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm2LastData.rain}}mm</strong></p>
                                                         <svg height="45.541px" viewBox="0 -7 512 512" width="47.542px"
                                                             xmlns="http://www.w3.org/2000/svg">
@@ -1677,7 +1677,7 @@
                                         <div class="">
                                             <div class="">
                                                 <div class="row">
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm2LastData.dewpoint}}°C</strong>
                                                         </p>
                                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -1734,7 +1734,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Punto de<br> rocío</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm2LastData.heatindex}}°C</strong>
                                                         </p>
                                                         <svg style="margin-right: 20px" height="70px"
@@ -1844,7 +1844,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Sensación<br> térmica</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium">
                                                             <strong>{{cmm2LastData.windSpeed}}Km/h</strong>
                                                         </p>
@@ -1900,7 +1900,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Velocidad del<br> viento</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium">
                                                             <strong>{{obtenerDireccionViento(cmm2LastData.windDir)}}</strong>
                                                         </p>
@@ -1987,11 +1987,11 @@
                 <div class="container py-5 h-100">
 
                     <div class="row d-flex justify-content-center align-items-center h-100" style="color: #282828;">
-                        <div class="col-xl-11 bgc" *ngIf="cmm3Loading" style="min-height: 55vh;">
+                        <div class="col-xl-11 bgc fullh" *ngIf="cmm3Loading" style="min-height: 55vh;">
                             <mat-progress-bar mode="indeterminate">
                             </mat-progress-bar>
                         </div>
-                        <div class="col-xl-11 bgc" *ngIf="!cmm3Loading">
+                        <div class="col-xl-11 bgc fullh" *ngIf="!cmm3Loading">
 
                             <div class="card mb-4 gradient-custom" style="border-radius: 25px;">
                                 <div class="card-body p-4">
@@ -2140,7 +2140,7 @@
                                         <div>
                                             <div>
                                                 <div class="row">
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm3LastData.outTemp}}°C</strong>
                                                         </p>
                                                         <svg style="margin-right: 20px" height="60px"
@@ -2187,7 +2187,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Temperatura</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm3LastData.outHumidity}}%</strong>
                                                         </p>
                                                         <svg height="55px" viewBox="-38 0 420 420.192" width="55px"
@@ -2230,7 +2230,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Humedad</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm3LastData.pressure}}hPa</strong>
                                                         </p>
                                                         <svg height="55px" viewBox="0 0 512 512" width="55px"
@@ -2253,7 +2253,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Presión</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm3LastData.rain}}mm</strong></p>
                                                         <svg height="45.541px" viewBox="0 -7 512 512" width="47.542px"
                                                             xmlns="http://www.w3.org/2000/svg">
@@ -2333,7 +2333,7 @@
                                         <div class="">
                                             <div class="">
                                                 <div class="row">
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm3LastData.dewpoint}}°C</strong>
                                                         </p>
                                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -2390,7 +2390,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Punto de<br> rocío</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm3LastData.heatindex}}°C</strong>
                                                         </p>
                                                         <svg style="margin-right: 20px" height="70px"
@@ -2500,7 +2500,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Sensación<br> térmica</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium">
                                                             <strong>{{cmm3LastData.windSpeed}}Km/h</strong>
                                                         </p>
@@ -2556,7 +2556,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Velocidad del<br> viento</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium">
                                                             <strong>{{obtenerDireccionViento(cmm3LastData.windDir)}}</strong>
                                                         </p>
@@ -2641,11 +2641,11 @@
                 <div class="container py-5 h-100">
 
                     <div class="row d-flex justify-content-center align-items-center h-100" style="color: #282828;">
-                        <div class="col-xl-11 bgc" *ngIf="cmm4Loading" style="min-height: 55vh;">
+                        <div class="col-xl-11 bgc fullh" *ngIf="cmm4Loading" style="min-height: 55vh;">
                             <mat-progress-bar mode="indeterminate">
                             </mat-progress-bar>
                         </div>
-                        <div class="col-xl-11 bgc" *ngIf="!cmm4Loading">
+                        <div class="col-xl-11 bgc fullh" *ngIf="!cmm4Loading">
 
                             <div class="card mb-4 gradient-custom" style="border-radius: 25px;">
                                 <div class="card-body p-4">
@@ -2794,7 +2794,7 @@
                                         <div>
                                             <div>
                                                 <div class="row">
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm4LastData.outTemp}}°C</strong>
                                                         </p>
                                                         <svg style="margin-right: 20px" height="60px"
@@ -2841,7 +2841,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Temperatura</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm4LastData.outHumidity}}%</strong>
                                                         </p>
                                                         <svg height="55px" viewBox="-38 0 420 420.192" width="55px"
@@ -2884,7 +2884,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Humedad</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm4LastData.pressure}}hPa</strong>
                                                         </p>
                                                         <svg height="55px" viewBox="0 0 512 512" width="55px"
@@ -2907,7 +2907,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Presión</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm4LastData.rain}}mm</strong></p>
                                                         <svg height="45.541px" viewBox="0 -7 512 512" width="47.542px"
                                                             xmlns="http://www.w3.org/2000/svg">
@@ -2987,7 +2987,7 @@
                                         <div class="">
                                             <div class="">
                                                 <div class="row">
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm4LastData.dewpoint}}°C</strong>
                                                         </p>
                                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -3044,7 +3044,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Punto de<br> rocío</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm4LastData.heatindex}}°C</strong>
                                                         </p>
                                                         <svg style="margin-right: 20px" height="70px"
@@ -3154,7 +3154,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Sensación<br> térmica</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium">
                                                             <strong>{{cmm4LastData.windSpeed}}Km/h</strong>
                                                         </p>
@@ -3210,7 +3210,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Velocidad del<br> viento</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium">
                                                             <strong>{{obtenerDireccionViento(cmm4LastData.windDir)}}</strong>
                                                         </p>
@@ -3295,11 +3295,11 @@
                 <div class="container py-5 h-100">
 
                     <div class="row d-flex justify-content-center align-items-center h-100" style="color: #282828;">
-                        <div class="col-xl-11 bgc" *ngIf="cmm5Loading" style="min-height: 55vh;">
+                        <div class="col-xl-11 bgc fullh" *ngIf="cmm5Loading" style="min-height: 55vh;">
                             <mat-progress-bar mode="indeterminate">
                             </mat-progress-bar>
                         </div>
-                        <div class="col-xl-11 bgc" *ngIf="!cmm5Loading">
+                        <div class="col-xl-11 bgc fullh" *ngIf="!cmm5Loading">
 
                             <div class="card mb-4 gradient-custom" style="border-radius: 25px;">
                                 <div class="card-body p-4">
@@ -3448,7 +3448,7 @@
                                         <div>
                                             <div>
                                                 <div class="row">
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm5LastData.outTemp}}°C</strong>
                                                         </p>
                                                         <svg style="margin-right: 20px" height="60px"
@@ -3495,7 +3495,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Temperatura</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm5LastData.outHumidity}}%</strong>
                                                         </p>
                                                         <svg height="55px" viewBox="-38 0 420 420.192" width="55px"
@@ -3538,7 +3538,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Humedad</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm5LastData.pressure}}hPa</strong>
                                                         </p>
                                                         <svg height="55px" viewBox="0 0 512 512" width="55px"
@@ -3561,7 +3561,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Presión</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm5LastData.rain}}mm</strong></p>
                                                         <svg height="45.541px" viewBox="0 -7 512 512" width="47.542px"
                                                             xmlns="http://www.w3.org/2000/svg">
@@ -3641,7 +3641,7 @@
                                         <div class="">
                                             <div class="">
                                                 <div class="row">
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm5LastData.dewpoint}}°C</strong>
                                                         </p>
                                                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -3698,7 +3698,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Punto de<br> rocío</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm5LastData.heatindex}}°C</strong>
                                                         </p>
                                                         <svg style="margin-right: 20px" height="70px"
@@ -3808,7 +3808,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Sensación<br> térmica</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium">
                                                             <strong>{{cmm5LastData.windSpeed}}Km/h</strong>
                                                         </p>
@@ -3864,7 +3864,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Velocidad del<br> viento</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium">
                                                             <strong>{{obtenerDireccionViento(cmm5LastData.windDir)}}</strong>
                                                         </p>
@@ -3949,11 +3949,11 @@
                 <div class="container py-5 h-100">
 
                     <div class="row d-flex justify-content-center align-items-center h-100" style="color: #282828;">
-                        <div class="col-xl-11 bgc" *ngIf="cmm6Loading" style="min-height: 55vh;">
+                        <div class="col-xl-11 bgc fullh" *ngIf="cmm6Loading" style="min-height: 55vh;">
                             <mat-progress-bar mode="indeterminate">
                             </mat-progress-bar>
                         </div>
-                        <div class="col-xl-11 bgc" *ngIf="!cmm6Loading">
+                        <div class="col-xl-11 bgc fullh" *ngIf="!cmm6Loading">
 
                             <div class="card mb-4 gradient-custom" style="border-radius: 25px;">
                                 <div class="card-body p-4">
@@ -4102,7 +4102,7 @@
                                         <div>
                                             <div>
                                                 <div class="row">
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm6LastData.outTemp}}°C</strong>
                                                         </p>
                                                         <svg style="margin-right: 20px" height="60px"
@@ -4149,7 +4149,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Temperatura</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium">
                                                             <strong>{{cmm6LastData.outHumidity}}%</strong>
                                                         </p>
@@ -4193,7 +4193,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Humedad</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium">
                                                             <strong>{{cmm6LastData.pressure}}hPa</strong>
                                                         </p>
@@ -4217,7 +4217,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Presión</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium"><strong>{{cmm6LastData.rain}}mm</strong>
                                                         </p>
                                                         <svg height="45.541px" viewBox="0 -7 512 512" width="47.542px"
@@ -4298,7 +4298,7 @@
                                         <div class="">
                                             <div class="">
                                                 <div class="row">
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium">
                                                             <strong>{{cmm6LastData.dewpoint}}°C</strong>
                                                         </p>
@@ -4356,7 +4356,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Punto de<br> rocío</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium">
                                                             <strong>{{cmm6LastData.heatindex}}°C</strong>
                                                         </p>
@@ -4467,7 +4467,7 @@
                                                         </svg>
                                                         <p class="mb-0"><strong>Sensación<br> térmica</strong></p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium">
                                                             <strong>{{cmm6LastData.windSpeed}}Km/h</strong>
                                                         </p>
@@ -4524,7 +4524,7 @@
                                                         <p class="mb-0"><strong>Velocidad del<br> viento</strong>
                                                         </p>
                                                     </div>
-                                                    <div class="col-xl-3 text-center">
+                                                    <div class="col-sm-3 text-center">
                                                         <p class="medium">
                                                             <strong>{{obtenerDireccionViento(cmm6LastData.windDir)}}</strong>
                                                         </p>
@@ -4608,7 +4608,7 @@
         </div>
     </section>
 
-    <section class="p-5" id="cmmData"> <!--#C1CFEA;  0D0C1D  noche -->
+    <section class="row" id="cmmData"> <!--#C1CFEA;  0D0C1D  noche -->
         <div *ngIf="modal" class="container">
             <div class="p-3 bgc">
 
@@ -4642,7 +4642,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div>
+                            <div class="noMostrar">
                                 <div>
                                     <div class="mat-elevation-z2" style="border-radius: 20px;">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"

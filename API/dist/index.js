@@ -42,7 +42,7 @@ var routes_1 = require("./routes");
 var helmet_1 = require("helmet");
 var data_source_1 = require("./data-source"); // Importa tus fuentes de datos aquí
 var cors = require('cors');
-var port = process.env.PORT || 3000; // Puerto único para todos los servidores
+var port = process.env.PORT || 3000; // 3300 produccion
 function initializeServer(connection, connectionName, app) {
     return __awaiter(this, void 0, void 0, function () {
         var error_1;
